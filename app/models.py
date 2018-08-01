@@ -75,7 +75,7 @@ class DjangoMigrations(models.Model):
         db_table = 'django_migrations'
 
 
-class Email(models.Model):
+class InteriorEmail(models.Model):
     e_id = models.AutoField(primary_key=True)
     user = models.ForeignKey('User', models.DO_NOTHING, blank=True, null=True)
     email_title = models.CharField(max_length=64)
