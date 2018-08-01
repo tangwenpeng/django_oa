@@ -1,6 +1,8 @@
-layui.use(['form', 'layer'], function () {
-    var form = layui.form
-    layer = parent.layer === undefined ? layui.layer : top.layer,
+layui.use(['form', 'layer', 'tree'], function () {
+
+    var form = layui.form,
+        tree = layui.tree,
+        layer = parent.layer === undefined ? layui.layer : top.layer,
         $ = layui.jquery;
 
     form.on("submit(addUser)", function (data) {
@@ -32,9 +34,54 @@ layui.use(['form', 'layer'], function () {
         //console.log(data.value); //被点击的radio的value值
         if (data.value == 3) {
             $('#permission_div').show();
-        }else {
+        } else {
             $('#permission_div').hide();
         }
+    });
+
+
+
+    tree({
+        elem: "#classtree"
+        ,
+        nodes: [{
+            name: '常用文件夹',
+            id: 1,
+            children: [{name: '所有未读', id: 11},
+                {name: '置顶邮件', id: 12},
+                {name: '标签邮件', id: 13}]
+            }, {name: '我的邮箱',id: 2,
+            spread: true,
+            children: [{
+                name: 'QQ邮箱',
+                id: 21,
+                spread: true,
+                children: [{
+                    name: '收件箱',
+                    id: 211,
+                    children: [{name: '所有未读', id: 2111}, {name: '置顶邮件', id: 2112}, {name: '标签邮件', id: 2113}]
+                }, {name: '已发出的邮件', id: 212}, {name: '垃圾邮件', id: 213}]
+            }, {
+                name: '阿里云邮',
+                id: 22,
+                children: [{name: '收件箱', id: 221}, {name: '已发出的邮件', id: 222}, {name: '垃圾邮件', id: 223}]
+            }]
+        }]
+        ,
+        click: function (node) {
+            var $select = $($(this)[0].elem).parents(".layui-form-select");
+            $select.removeClass("layui-form-selected").find(".layui-select-title span").html(node.name).end().find("input:hidden[name='menu_pid']").val(node.id);
+        }
+    });
+    $(".downpanel").on("click", ".layui-select-title", function (e) {
+        $(".layui-form-select").not($(this).parents(".layui-form-select")).removeClass("layui-form-selected");
+        $(this).parents(".downpanel").toggleClass("layui-form-selected");
+        layui.stope(e);
+    }).on("click", "dl i", function (e) {
+        layui.stope(e);
+    });
+    $(document).on("click", function (e) {
+        $(".layui-form-select").removeClass("layui-form-selected");
     });
 
 });
