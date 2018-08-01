@@ -77,10 +77,10 @@ WSGI_APPLICATION = 'django_oa.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'oa',
+        'NAME': 'OA',
         'USER': 'root',
         'PASSWORD': '123456',
-        'HOST': 'localhost',
+        'HOST': '47.98.164.213',
         'POST': '3306',
     }
 }
