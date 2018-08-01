@@ -158,7 +158,6 @@ class Menu(models.Model):
     create_time = models.DateTimeField(auto_now_add=True, blank=True, null=True)  # 创建时间
     update_time = models.DateTimeField(auto_now=True, blank=True, null=True)  # 更改时间
 
-
     class Meta:
         managed = False
         db_table = 'menu'
