@@ -33,7 +33,7 @@
 				{
 					"title": "薪资发放",
 					"icon": "&#xe609;",
-					"href": "/static/page",
+					"href": "/app/pay_salary/",
 					"spread": false
 				}
 			]
