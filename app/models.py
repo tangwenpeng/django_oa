@@ -141,7 +141,27 @@ class Meeting(models.Model):
 
 
 class Menu(models.Model):
-    menu_id = models.AutoField(primary_key=True)
+    class Menu(models.Model):
+        menu_id = models.AutoField(primary_key=True)  # 编号
+        pid = models.IntegerField(blank=True, null=True)  # 父级编号
+        menu_name = models.CharField(max_length=64, blank=True, null=True)  # 菜单名称
+        menu_type = models.IntegerField(blank=True, null=True)  # 菜单类型
+        menu_level = models.IntegerField(blank=True, null=True)  # 菜单层次级别
+        sort = models.IntegerField(blank=True, null=True)  # 排序
+        menu_href = models.CharField(max_length=1024, blank=True, null=True)  # 菜单链接
+        menu_icon = models.CharField(max_length=100, blank=True, null=True)  # 菜单图标
+        permission = models.CharField(max_length=256, blank=True, null=True)  # 权限标识(权限值)
+        request_method = models.CharField(max_length=16, blank=True, null=True)  # 请求方法
+        request_arguments = models.CharField(max_length=512, blank=True, null=True)  # 请求必带参数
+        request_arguments2 = models.CharField(max_length=512, blank=True, null=True)  # 请求必须带有某些值参数
+        hook_function = models.CharField(max_length=256, blank=True, null=True)  # 自定义钩子函数
+        is_del = models.IntegerField(blank=True, null=True)  # 是否删除
+        create_time = models.DateTimeField(auto_now_add=True, blank=True, null=True)  # 创建时间
+        update_time = models.DateTimeField(auto_now=True, blank=True, null=True)  # 更改时间
+
+        class Meta:
+            managed = False
+            db_table = 'menu'
 
     class Meta:
         managed = False
