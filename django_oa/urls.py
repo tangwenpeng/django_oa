@@ -18,16 +18,10 @@ from django.contrib import admin
 from django.contrib.staticfiles.urls import static
 
 from django_oa.settings import MEDIA_URL, MEDIA_ROOT
-from rest_framework.routers import SimpleRouter
-
-from app.menu_views import MenuViewSet
-
-router = SimpleRouter()
-router.register(r'^menu', MenuViewSet, base_name='menu')
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^app/', include('app.urls', namespace='app')),
 ]
 urlpatterns += static(MEDIA_URL, document_root=MEDIA_ROOT)
-urlpatterns += router.urls
+
