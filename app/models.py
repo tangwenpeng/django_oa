@@ -9,7 +9,7 @@ from django.db import models
 
 
 class Announcement(models.Model):
-    an_id = models.IntegerField(primary_key=True)
+    an_id = models.AutoField(primary_key=True)
     user = models.ForeignKey('User', models.DO_NOTHING, blank=True, null=True)
     announcement_id = models.IntegerField()
     announcement_title = models.CharField(max_length=64)
@@ -24,7 +24,7 @@ class Announcement(models.Model):
 
 
 class Attendance(models.Model):
-    attendance_id = models.IntegerField(primary_key=True)
+    attendance_id = models.AutoField(primary_key=True)
     user = models.ForeignKey('User', models.DO_NOTHING, blank=True, null=True)
     job_number = models.CharField(max_length=32)
     name = models.CharField(max_length=64)
@@ -39,7 +39,7 @@ class Attendance(models.Model):
 
 
 class AttendanceStatistics(models.Model):
-    attend_s_id = models.IntegerField(primary_key=True)
+    attend_s_id = models.AutoField(primary_key=True)
     attendance = models.ForeignKey(Attendance, models.DO_NOTHING, blank=True, null=True)
     date = models.DateTimeField()
     department_id = models.IntegerField()
@@ -53,18 +53,8 @@ class AttendanceStatistics(models.Model):
         db_table = 'attendance_statistics'
 
 
-class ChPermission(models.Model):
-    per = models.ForeignKey('Permission', models.DO_NOTHING, primary_key=True)
-    role = models.ForeignKey('Role', models.DO_NOTHING)
-
-    class Meta:
-        managed = False
-        db_table = 'ch_permission'
-        unique_together = (('per', 'role'),)
-
-
 class Department(models.Model):
-    d_id = models.IntegerField(primary_key=True)
+    d_id = models.AutoField(primary_key=True)
     department_id = models.IntegerField()
     department = models.CharField(max_length=64)
     higher_id = models.IntegerField()
@@ -75,8 +65,18 @@ class Department(models.Model):
         db_table = 'department'
 
 
+class DjangoMigrations(models.Model):
+    app = models.CharField(max_length=255)
+    name = models.CharField(max_length=255)
+    applied = models.DateTimeField()
+
+    class Meta:
+        managed = False
+        db_table = 'django_migrations'
+
+
 class Email(models.Model):
-    e_id = models.IntegerField(primary_key=True)
+    e_id = models.AutoField(primary_key=True)
     user = models.ForeignKey('User', models.DO_NOTHING, blank=True, null=True)
     email_title = models.CharField(max_length=64)
     email_content = models.CharField(max_length=1024)
@@ -92,7 +92,7 @@ class Email(models.Model):
 
 
 class File(models.Model):
-    f_id = models.IntegerField(primary_key=True)
+    f_id = models.AutoField(primary_key=True)
     user = models.ForeignKey('User', models.DO_NOTHING, blank=True, null=True)
     file_id = models.CharField(max_length=32)
     job_number = models.CharField(max_length=32)
@@ -115,7 +115,7 @@ class File(models.Model):
 
 
 class Log(models.Model):
-    l_id = models.IntegerField(primary_key=True)
+    l_id = models.AutoField(primary_key=True)
     user = models.ForeignKey('User', models.DO_NOTHING, blank=True, null=True)
     log_id = models.IntegerField()
     log = models.CharField(max_length=1024)
@@ -129,7 +129,7 @@ class Log(models.Model):
 
 
 class Meeting(models.Model):
-    m_id = models.IntegerField(primary_key=True)
+    m_id = models.AutoField(primary_key=True)
     meeting_id = models.IntegerField()
     meeting_room = models.CharField(max_length=64)
     job_number = models.CharField(max_length=32)
@@ -140,8 +140,16 @@ class Meeting(models.Model):
         db_table = 'meeting'
 
 
+class Menu(models.Model):
+    menu_id = models.AutoField(primary_key=True)
+
+    class Meta:
+        managed = False
+        db_table = 'menu'
+
+
 class News(models.Model):
-    ne_id = models.IntegerField(primary_key=True)
+    ne_id = models.AutoField(primary_key=True)
     user = models.ForeignKey('User', models.DO_NOTHING, blank=True, null=True)
     news_id = models.IntegerField()
     news_title = models.CharField(max_length=64)
@@ -155,7 +163,7 @@ class News(models.Model):
 
 
 class OfficeGoods(models.Model):
-    office_goods_id = models.IntegerField(primary_key=True)
+    office_goods_id = models.AutoField(primary_key=True)
     user = models.ForeignKey('User', models.DO_NOTHING, blank=True, null=True)
     goods_id = models.IntegerField()
     goods = models.CharField(max_length=64)
@@ -167,16 +175,8 @@ class OfficeGoods(models.Model):
         db_table = 'office_goods'
 
 
-class Permission(models.Model):
-    per_id = models.IntegerField(primary_key=True)
-
-    class Meta:
-        managed = False
-        db_table = 'permission'
-
-
 class Role(models.Model):
-    role_id = models.IntegerField(primary_key=True)
+    role_id = models.AutoField(primary_key=True)
     post_id = models.IntegerField()
     post = models.CharField(max_length=64)
 
@@ -185,8 +185,18 @@ class Role(models.Model):
         db_table = 'role'
 
 
+class RoleMenu(models.Model):
+    role = models.ForeignKey(Role, models.DO_NOTHING, primary_key=True)
+    menu = models.ForeignKey(Menu, models.DO_NOTHING)
+
+    class Meta:
+        managed = False
+        db_table = 'role_menu'
+        unique_together = (('role', 'menu'),)
+
+
 class Salary(models.Model):
-    s_id = models.IntegerField(primary_key=True)
+    s_id = models.AutoField(primary_key=True)
     user = models.ForeignKey('User', models.DO_NOTHING, blank=True, null=True)
     salary_id = models.IntegerField()
     jon_number = models.CharField(max_length=32)
@@ -205,7 +215,7 @@ class Salary(models.Model):
 
 
 class User(models.Model):
-    user_id = models.IntegerField(primary_key=True)
+    user_id = models.AutoField(primary_key=True)
     m = models.ForeignKey(Meeting, models.DO_NOTHING, blank=True, null=True)
     d = models.ForeignKey(Department, models.DO_NOTHING, blank=True, null=True)
     job_number = models.CharField(max_length=32)
