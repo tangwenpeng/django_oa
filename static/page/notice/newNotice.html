@@ -23,14 +23,14 @@
 				<a class="layui-btn search_btn" data-type="reload">搜索</a>
 			</div>
 			<div class="layui-inline">
-				<a class="layui-btn layui-btn-normal addNews_btn">添加文章</a>
+				<a class="layui-btn layui-btn-normal addNews_btn">添加公告</a>
 			</div>
 			<div class="layui-inline">
 				<a class="layui-btn layui-btn-danger layui-btn-normal delAll_btn">批量删除</a>
 			</div>
 		</form>
 	</blockquote>
-	<table id="newsList" lay-filter="newsList"></table>
+	<table id="newNotice" lay-filter="newsList"></table>
 	<!--审核状态-->
 	<script type="text/html" id="newsStatus">
 		{{#  if(d.newsStatus == "1"){ }}
@@ -50,6 +50,6 @@
 	</script>
 </form>
 <script type="text/javascript" src="../../layui/layui.js"></script>
-<script type="text/javascript" src="newsList.js"></script>
+<script type="text/javascript" src="newNotice.js"></script>
 </body>
 </html>
