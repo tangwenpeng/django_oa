@@ -87,9 +87,11 @@ def perm_check(*args, **kwargs):
 
 
 def check_permission(func):
+
     def inner(*args, **kwargs):
         if not perm_check(*args, **kwargs):
             request = args[0]
+
             return render(request, 'kingadmin/page_403.html')
         return func(*args, **kwargs)
 
