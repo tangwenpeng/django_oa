@@ -25,3 +25,10 @@ def salary(request):
         return JsonResponse({'code': 0, 'msg': '成功', 'count': count, 'data': data['salary_info']})
 
 
+def check_salary(request):
+    """工资详情页面"""
+    if request.method == 'GET':
+        return render(request, 'salary/check_salary.html')
+
+
+
