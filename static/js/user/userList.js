@@ -82,7 +82,7 @@ layui.use(['form','layer','table','laytpl'],function(){
                     });
                 },500)
             }
-        })
+        });
         layui.layer.full(index);
         window.sessionStorage.setItem("index",index);
         //改变窗口大小时，重置弹窗的宽高，防止超出可视区域（如F12调出debug的操作）
