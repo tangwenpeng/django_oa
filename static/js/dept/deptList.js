@@ -48,7 +48,6 @@ layui.use(['form', 'layer', 'table', 'laytpl'], function () {
             content: "/app/dept_add/",
             success: function (layero, index) {
                 var body = layui.layer.getChildFrame('body', index);
-                console.log(edit);
                 if (edit) {
                     body.find(".department_num").val(edit.department_num); //部门编号
                     body.find(".department").val(edit.department);  //部门名称
@@ -93,8 +92,10 @@ layui.use(['form', 'layer', 'table', 'laytpl'], function () {
                     data: {department_num: data.department_num},
                     headers: {'X-CSRFToken': csrf},
                     success: function (msg) {
-                        tableIns.reload();
-                        layer.close(index);
+                        if (msg.code == 0){
+                            tableIns.reload();
+                            layer.close(index);
+                        }
                     },
                 });
             });
