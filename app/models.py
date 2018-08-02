@@ -135,7 +135,9 @@ class Meeting(models.Model):
     meeting_id = models.IntegerField()
     meeting_room = models.CharField(max_length=64)
     job_number = models.CharField(max_length=32)
-    department_id = models.IntegerField(blank=True, null=True)
+    department_id = models.CharField(max_length=11, blank=True, null=True)
+    meeting_date = models.DateTimeField()
+    meeting_title = models.CharField(max_length=64)
 
     class Meta:
         managed = False

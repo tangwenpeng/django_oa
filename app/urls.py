@@ -1,6 +1,7 @@
 from django.conf.urls import url
 
 from app import views
+from app.meeting import meeting_views
 from app.salary import salary_views
 from app.user import user_views
 
@@ -20,5 +21,11 @@ urlpatterns = [
     url(r'^dept_list/$', user_views.dept_list, name='dept_list'),  # 部门页面
     url(r'^dept_add/$', user_views.dept_add, name='dept_add'),  # 添加部门
     url(r'^dept_info/$', user_views.dept_info, name='dept_info'),  # 部门详细信息
+
+    # 会议模块
+    url(r'my_meeting/$', meeting_views.my_meeting, name='my_meeting'),  # 我的会议页面
+    url(r'meeting_list/$', meeting_views.meeting_list, name='meeting_list'),  # 我的会议信息
+    url(r'meeting_appointment/$', meeting_views.meeting_appointment, name='meeting_appointment'),  # 会议预约
+
 ]
 
