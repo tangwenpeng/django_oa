@@ -48,17 +48,13 @@ layui.use(['form', 'layer', 'table', 'laytpl'], function () {
             content: "/app/dept_add/",
             success: function (layero, index) {
                 var body = layui.layer.getChildFrame('body', index);
+                console.log(edit);
                 if (edit) {
                     body.find(".department_num").val(edit.department_num); //部门编号
                     body.find(".department").val(edit.department);  //部门名称
                     body.find(".description").val(edit.description); //部门简介
                     body.find('.higher_id').val(edit.higher_id);
-                    /*var options = body.find(".higher_id option");
-                    for (var i = 0; i < options.length; i++) {
-                        if (options[i].value == edit.higher_id) {
-                            body.find(".layui-select-title input").val(123);
-                        }
-                    } */
+                    body.find('.layui-select-title .layui-unselect').val(edit.higher_department);
                     form.render();
                 }
                 setTimeout(function () {
@@ -94,7 +90,7 @@ layui.use(['form', 'layer', 'table', 'laytpl'], function () {
                     url: '/app/dept_del/',
                     type: 'post',
                     dataType: 'json',
-                    data: {department_num: data.department_num}, //将需要删除的newsId作为参数传入
+                    data: {department_num: data.department_num},
                     headers: {'X-CSRFToken': csrf},
                     success: function (msg) {
                         tableIns.reload();
@@ -104,4 +100,5 @@ layui.use(['form', 'layer', 'table', 'laytpl'], function () {
             });
         }
     });
+
 })
