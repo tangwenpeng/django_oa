@@ -195,9 +195,10 @@ class OfficeGoods(models.Model):
 
 
 class Role(models.Model):
-    role_id = models.AutoField(primary_key=True)
-    post_id = models.IntegerField()
-    post = models.CharField(max_length=64)
+    """角色"""
+    role_id = models.AutoField(primary_key=True) # 自增id
+    post_id = models.IntegerField() # 角色id
+    post = models.CharField(max_length=64) # 角色名
 
     class Meta:
         managed = False
@@ -252,16 +253,16 @@ class Salary(models.Model):
 
 
 class User(models.Model):
-    user_id = models.AutoField(primary_key=True)  # 用户
-    m = models.ForeignKey(Meeting, models.DO_NOTHING, blank=True, null=True)
-    d = models.ForeignKey(Department, models.DO_NOTHING, blank=True, null=True)
-    job_number = models.CharField(max_length=32)
-    name = models.CharField(max_length=64)
-    department = models.CharField(max_length=64)
-    phone = models.CharField(max_length=11)
-    email = models.CharField(max_length=32)
-    office_phone = models.CharField(max_length=20, blank=True, null=True)
-    post = models.CharField(max_length=64)
+    user_id = models.AutoField(primary_key=True)  # 用户id
+    m = models.ForeignKey(Meeting, models.DO_NOTHING, blank=True, null=True) # 会议id
+    d = models.ForeignKey(Department, models.DO_NOTHING, blank=True, null=True) # 部门id
+    job_number = models.CharField(max_length=32)  # 工号
+    name = models.CharField(max_length=64)  # 姓名
+    phone = models.CharField(max_length=11)  # 联系电话
+    email = models.CharField(max_length=32)  # 邮箱
+    office_phone = models.CharField(max_length=20, blank=True, null=True)  # 办公电话
+    role = models.ManyToManyField(Role, through='UserRole')  # 用户角色
+
 
     class Meta:
         managed = False
