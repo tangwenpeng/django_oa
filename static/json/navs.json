@@ -154,7 +154,7 @@
 		},{
 			"title": "菜单管理",
 			"icon": "&#xe857;",
-			"href": "/static/page/menu/menuList.html",
+			"href": "/app/menu_list",
 			"spread": false
 		}
 	]
