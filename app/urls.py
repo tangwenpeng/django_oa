@@ -1,9 +1,9 @@
 from django.conf.urls import url
 
 from app import views
-from app.menu.menu_views import MenuViewSet
 from app.salary import salary_views
 from app.user import user_views
+from app.menu import menu_views
 
 from rest_framework.routers import SimpleRouter
 
@@ -25,6 +25,10 @@ urlpatterns = [
     url(r'^dept_list/$', user_views.dept_list, name='dept_list'),
     url(r'^dept_add/$', user_views.dept_add, name='dept_add'),
     url(r'^dept_info/$', user_views.dept_info, name='dept_info'),
-    url(r'^menu$', MenuViewSet.as_view(),name='menu'),
+
+    # 菜单模块
+    url(r'^menu_list/', menu_views.menu_list, name='menu_list'),
+    url(r'^add_menu/', menu_views.add_menu, name='add_menu'),
+    url(r'^menu_json_list/', menu_views.menu_json_list, name='menu_json_list')
 ]
 # urlpatterns += router.urls
