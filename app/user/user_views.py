@@ -50,6 +50,27 @@ def user_add(request):
     if request.method == 'GET':
         return render(request, 'user/userAdd.html')
 
+def user_del(request):
+    """
+    删除用户
+    :param request:
+    :return:
+    """
+    if request.method == 'POST':
+        data = request.POST.dict()
+        # 获取用户编号
+        job_no = data.get('job_no')
+        # 获取要删除的用户对象
+        user = User.objects.get(job_number=job_no)
+        # 更改数据库状态,实现软删除
+        user.is_delete = 1
+        # 保存更改
+        user.save()
+        msg = {
+            "code": 0,
+            "msg": "删除成功",
+        }
+        return JsonResponse(msg)
 
 def user_info(request):
     """

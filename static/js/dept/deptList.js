@@ -84,7 +84,7 @@ layui.use(['form', 'layer', 'table', 'laytpl'], function () {
         if (layEvent === 'edit') { //编辑
             addDept(data);
         } else if (layEvent === 'del') { //删除
-            layer.confirm('确定删除此用户？', {icon: 3, title: '提示信息'}, function (index) {
+            layer.confirm('确定删除此部门？', {icon: 3, title: '提示信息'}, function (index) {
                 $.ajax({
                     url: '/app/dept_del/',
                     type: 'post',
