@@ -56,7 +56,7 @@ class AttendanceStatistics(models.Model):
 class Department(models.Model):
     """部门"""
     d_id = models.AutoField(primary_key=True)  # 主键id
-    department_num = models.CharField(max_length=32)  # 部门编号
+    department_num = models.CharField(max_length=32,unique=True)  # 部门编号
     department = models.CharField(max_length=64)  # 部门名称
     higher_id = models.IntegerField()  # 上级部门id
     description = models.CharField(max_length=256, blank=True, null=True)  # 部门描述
