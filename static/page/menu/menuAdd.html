@@ -11,6 +11,42 @@
     <meta name="format-detection" content="telephone=no">
     <link rel="stylesheet" href="/static/layui/css/layui.css" media="all"/>
     <link rel="stylesheet" href="/static/css/public.css" media="all"/>
+    <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
+    <style type="text/css">
+        .downpanel .layui-select-title span {
+            line-height: 38px;
+        }
+
+        /*继承父类颜色*/
+        .downpanel dl dd:hover {
+            background-color: inherit;
+        }
+    </style>
+    <style type="text/css">
+        body {
+            height: 100%;
+            width: 100%;
+            background-size: cover;
+            margin: 0 auto;
+        }
+
+        td {
+            font-size: 12px !important;
+        }
+
+        .layui-form-checkbox span {
+            height: 30px;
+        }
+
+        .layui-field-title {
+            border-top: 1px solid white;
+        }
+
+        table {
+            width: 100% !important;
+        }
+
+    </style>
 </head>
 <body class="childrenBody">
 <form class="layui-form" style="width:80%;">
@@ -19,7 +55,19 @@
         <div class="layui-inline layui-col-xs5">
             <label class="layui-form-label">上级菜单</label>
             <div class="layui-input-block">
-                <input type="text" class="layui-input pid" placeholder="选择上级菜单">
+                <!-- <input type="text" class="layui-input pid" placeholder="选择上级菜单"> -->
+                <div class="layui-unselect layui-form-select downpanel">
+                    <div class="layui-select-title">
+                        <span class="layui-input layui-unselect" id="treeclass">选择上级菜单</span>
+                        <input type="hidden" name="menu_pid" value="0">
+                        <i class="layui-edge"></i>
+                    </div>
+                    <dl class="layui-anim layui-anim-upbit">
+                        <dd>
+                            <ul id="classtree"></ul>
+                        </dd>
+                    </dl>
+                </div>
             </div>
         </div>
         <div class="layui-inline layui-col-xs5">

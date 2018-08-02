@@ -1,6 +1,8 @@
 from django.conf.urls import url
 
-from app import views, user_views,salary_views
+from app import views
+from app.salary import salary_views
+from app.user import user_views
 
 urlpatterns = [
     url(r'^index/', views.index, name='index'),
