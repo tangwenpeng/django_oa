@@ -21,10 +21,10 @@
             <label class="layui-form-label">上级部门</label>
             <div class="layui-input-block">
                 <select name="higher_id" class="higher_id" lay-filter="higher_id">
-{#                <option value="0"></option>#}
                     {% for depart in departments %}
                         <option value="{{ depart.d_id }}">{{ depart.department }}</option>
                     {% endfor %}
+                <option value="0">无</option>
                 </select>
             </div>
         </div>

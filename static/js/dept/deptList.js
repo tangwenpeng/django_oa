@@ -8,7 +8,7 @@ layui.use(['form', 'layer', 'table', 'laytpl'], function () {
     //部门列表
     var tableIns = table.render({
         elem: '#deptList',
-        url: '/app/dept/',
+        url: '/app/dept_list/',
         cellMinWidth: 95,
         page: true,
         height: "full-125",

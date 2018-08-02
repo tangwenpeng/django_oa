@@ -9,7 +9,7 @@
 				{
 					"title": "用户管理",
 					"icon": "&#xe61c;",
-					"href": "/app/user_list/",
+					"href": "/app/user/",
 					"spread": false
 				},
 				{
@@ -21,7 +21,7 @@
 				{
 					"title": "部门管理",
 					"icon": "&#xe609;",
-					"href": "/app/dept_list/",
+					"href": "/app/dept/",
 					"spread": false
 				}
 			]

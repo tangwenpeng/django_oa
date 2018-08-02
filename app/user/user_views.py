@@ -34,17 +34,17 @@ def user_info(request):
         return render(request, 'user/userInfo.html')
 
 
-def dept_list(request):
+def dept(request):
     """
     显示部门页面
     :param request:
     :return:
     """
     if request.method == 'GET':
-        return render(request, 'dept/deptList.html')
+        return render(request, 'dept/dept.html')
 
 
-def dept(request):
+def dept_list(request):
     if request.method == 'GET':
         departments = Department.objects.filter(is_delete=0)
         departments_list = []
