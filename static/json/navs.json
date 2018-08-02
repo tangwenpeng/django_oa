@@ -21,19 +21,19 @@
 				{
 					"title": "用户管理",
 					"icon": "&#xe61c;",
-					"href": "/static/page/user/userList.html",
+					"href": "/app/user_list/",
 					"spread": false
 				},
 				{
 					"title": "岗位管理",
 					"icon": "&#xe609;",
-					"href": "/static/page/user/userList.html",
+					"href": "/app/user_list/",
 					"spread": false
 				},
 				{
 					"title": "部门管理",
 					"icon": "&#xe609;",
-					"href": "/static/page/user/userList.html",
+					"href": "/app/dept_list/",
 					"spread": false
 				}
 			]

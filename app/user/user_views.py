@@ -34,23 +34,23 @@ def user_info(request):
         return render(request, 'user/userInfo.html')
 
 
-def dept(request):
+def dept_list(request):
     """
     显示部门页面
     :param request:
     :return:
     """
     if request.method == 'GET':
-
         return render(request, 'dept/deptList.html')
-def dept_list(request):
+
+
+def dept(request):
     if request.method == 'GET':
         msg = {
             "code": 0,
             "msg": "",
             "count": 3,
         }
-
 
 
 def dept_add(request):
