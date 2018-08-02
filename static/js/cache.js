@@ -21,9 +21,6 @@ layui.use(['form','jquery',"layer"],function() {
     }else{
         $("#userFace").attr("src","../../images/face.jpg");
     }
-
-<<<<<<< HEAD
-=======
     //公告层
     function showNotice(){
         // layer.open({
@@ -59,8 +56,6 @@ layui.use(['form','jquery',"layer"],function() {
     $(".showNotice").on("click",function(){
         showNotice();
     })
-
->>>>>>> 8af21f9425f47ef8dc81bc4bb3c4882042fa6727
     //锁屏
     function lockPage(){
         layer.open({
@@ -306,4 +301,4 @@ layui.use(['form','jquery',"layer"],function() {
         })
     })
 
-})
+});

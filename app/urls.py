@@ -1,6 +1,7 @@
 from django.conf.urls import url
 
 from app import views
+from app.meeting import meeting_views
 from app.menu import menu_views
 from app.salary import salary_views
 from app.user import user_views
@@ -11,6 +12,8 @@ urlpatterns = [
     # 薪资模块
     url(r'^salary/', salary_views.salary, name='salary'),
     url(r'check_salary/', salary_views.check_salary, name='check_salary'),
+    url(r'change_status/', salary_views.change_status, name='change_status'),
+
 
     # 用户模块
     url(r'^user/$', user_views.user, name='user'),
@@ -26,7 +29,14 @@ urlpatterns = [
 
     url(r'^menu_list/', menu_views.menu_list, name='menu_list'),
     url(r'^add_menu/', menu_views.add_menu, name='add_menu'),
-    url(r'^menu_json_list/', menu_views.menu_json_list, name='menu_json_list')
+    url(r'^menu_json_list/', menu_views.menu_json_list, name='menu_json_list'),
+
+    url(r'^dept_info/$', user_views.dept_info, name='dept_info'),  # 部门详细信息
+
+    # 会议模块
+    url(r'my_meeting/$', meeting_views.my_meeting, name='my_meeting'),  # 我的会议页面
+    url(r'meeting_list/$', meeting_views.meeting_list, name='meeting_list'),  # 我的会议信息
+    url(r'meeting_appointment/$', meeting_views.meeting_appointment, name='meeting_appointment'),  # 会议预约
 
 ]
 

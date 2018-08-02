@@ -28,6 +28,8 @@ layui.use(['form','layer','table','laytpl'],function(){
             {field: 'five_insurance', title: '五险一金', minWidth:100, align:"center"},
             {field: 'provident_fund', title: '公积金', minWidth:100, align:"center"},
             {field: 'real_salary', title: '实际工资', minWidth:100, align:"center"},
+            {field: 'real_salary', title: '实际工资', minWidth:100, align:"center"},
+            {field: 'salary_status', title: '发放状态', minWidth:100, align:"center"},
             // {field: 'userEmail', title: '用户邮箱', minWidth:200, align:'center',templet:function(d){
             //     return '<a class="layui-blue" href="mailto:'+d.userEmail+'">'+d.userEmail+'</a>';
             // }},
@@ -49,7 +51,7 @@ layui.use(['form','layer','table','laytpl'],function(){
             //     }
             // }},
             // {field: 'userEndTime', title: '最后登录时间', align:'center',minWidth:150},
-            {title: '操作', minWidth:205, templet:'#userListBar',fixed:"right",align:"center"}
+            {title: '操作', minWidth:180, templet:'#userListBar',fixed:"right",align:"center"}
         ]]
     });
 
@@ -68,7 +70,6 @@ layui.use(['form','layer','table','laytpl'],function(){
             layer.msg("请输入搜索的内容");
         }
     });
-
     //添加用户
     function addUser(edit){
         var index = layui.layer.open({
@@ -92,7 +93,7 @@ layui.use(['form','layer','table','laytpl'],function(){
                     });
                 },500)
             }
-        })
+        });
         layui.layer.full(index);
         window.sessionStorage.setItem("index",index);
         //改变窗口大小时，重置弹窗的宽高，防止超出可视区域（如F12调出debug的操作）
@@ -124,8 +125,7 @@ layui.use(['form','layer','table','laytpl'],function(){
         }else{
             layer.msg("请选择需要删除的用户");
         }
-    })
-
+    });
     //列表操作
     table.on('tool(userList)', function(obj){
         var layEvent = obj.event,
@@ -133,26 +133,65 @@ layui.use(['form','layer','table','laytpl'],function(){
 
         if(layEvent === 'edit'){ //编辑
             addUser(data);
-        }else if(layEvent === 'usable'){ //启用禁用
+        }else if(layEvent === 'pay_salary'){ //启用禁用
+
+            var salary_status = data['salary_status'];
+            btnText = data['salary_status'];
             var _this = $(this),
-                usableText = "工资已发放",
-                btnText = "已发放";
+                pay_salaryText = '工资已发放',
+                btnText = '已发放';
             if(_this.text()=="未发放"){
-                usableText = "是否发放工资？",
+                pay_salaryText = "是否发放工资？";
                 btnText = "已发放";
             }
-            layer.confirm(usableText,{
-                icon: 3,
-                title:'系统提示',
-                cancel : function(index){
-                    layer.close(index);
+            layer.confirm(pay_salaryText, {
+                    icon: 3,
+                    title: '系统提示',
+                    cancel: function (index) {
+                        layer.close(index);
+                    }
+                },function (index) {
+                    _this.text(btnText)
+                    layer.close(index)
                 }
-            },function(index){
-                _this.text(btnText);
-                layer.close(index);
-            },function(index){
-                layer.close(index);
-            });
+            );
+            // var salary_status = data['salary_status'];
+            // var _this = $(this),
+            //     usableText = "工资已发放",
+            //     btnText = "已发放";
+            // if(_this.text()=="未发放"){
+            //     usableText = "是否发放工资？";
+            //     btnText = "已发放";
+            //
+            // }
+            // layer.confirm(usableText,{
+            //     icon: 3,
+            //     title:'系统提示',
+            //     cancel : function(index){
+            //         layer.close(index);
+            //     }
+            // },function(index){
+            //     _this.text(btnText);
+
+                // var csrf_token = $('input[name="csrfmiddlewaretoken"]').val();
+                // $.ajax({
+                //     url: '/app/change_status/',
+                //     type: 'post',
+                //     dataType: 'json',
+                //     data: {'status': btnText, 'data': data},
+                //     headers: {'X-CSRFToken': csrf_token},
+                //     success: function (resp) {
+                //         if (resp.code == 200){
+                //             usableText = "工资已发放";
+                //             btnText = "已发放";
+                //             location.href = '/app/pay_salary/';
+                //         }
+                //     }
+                // });
+                // layer.close(index);
+            // },function(index){
+            //     layer.close(index);
+            // });
         }else if(layEvent === 'del'){ //删除
             layer.confirm('确定删除此用户？',{icon:3, title:'提示信息'},function(index){
                 // $.get("删除文章接口",{

@@ -78,6 +78,26 @@
 			]
 		},
 		{
+			"title": "会议管理",
+			"icon": "&#xe61c;",
+			"href": "/static/page/",
+			"spread": false,
+			"children": [
+				{
+					"title": "我的会议",
+					"icon": "&#xe609;",
+					"href": "/app/my_meeting/",
+					"spread": false
+				},
+				{
+					"title": "会议预约",
+					"icon": "&#xe609;",
+					"href": "/static/page",
+					"spread": false
+				}
+			]
+		},
+		{
 			"title": "其他页面",
 			"icon": "&#xe630;",
 			"href": "",
