@@ -16,9 +16,9 @@ urlpatterns = [
     url(r'^user_info/$', user_views.user_info, name='user_info'),
 
     # 部门模块
-    url(r'^dept$', user_views.dept, name='dept'),
-    url(r'^dept_list/$', user_views.dept_list, name='dept_list'),
-    url(r'^dept_add/$', user_views.dept_add, name='dept_add'),
-    url(r'^dept_info/$', user_views.dept_info, name='dept_info'),
+    url(r'^dept/$', user_views.dept, name='dept'),  # 部门信息
+    url(r'^dept_list/$', user_views.dept_list, name='dept_list'),  # 部门页面
+    url(r'^dept_add/$', user_views.dept_add, name='dept_add'),  # 添加部门
+    url(r'^dept_info/$', user_views.dept_info, name='dept_info'),  # 部门详细信息
 ]
 

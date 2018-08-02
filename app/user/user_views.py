@@ -46,11 +46,30 @@ def dept_list(request):
 
 def dept(request):
     if request.method == 'GET':
+        departments = Department.objects.filter(is_delete=0)
+        departments_list = []
         msg = {
             "code": 0,
             "msg": "",
-            "count": 3,
+            "count": len(departments),
         }
+        for depart in departments:
+            temp = dict()
+            # 部门名称
+            temp['department_num'] = depart.department_num
+            # 部门编号
+            temp['department'] = depart.department
+            # 上级部门名称
+            if depart.higher_id:
+                temp['higher_id'] = Department.objects.get(d_id=depart.higher_id).department
+            else:
+                temp['higher_id'] = None
+            # 部门简介
+            temp['description'] = depart.description
+            departments_list.append(temp)
+
+        msg['data'] = departments_list
+        return JsonResponse(msg)
 
 
 def dept_add(request):
@@ -64,7 +83,7 @@ def dept_add(request):
         return render(request, 'dept/deptAdd.html', {'departments': departments})
     if request.method == 'POST':
         msg = {
-            'code': 200,
+            'code': 0,
             'msg': '请求成功'
         }
         data = request.POST.dict()

@@ -19,7 +19,7 @@ layui.use(['form', 'layer'], function () {
             dataType: 'json',
             headers: {'X-CSRFToken': csrf},
             success: function (msg) {
-                if (msg.code == 200) {
+                if (msg.code == 0) {
                     setTimeout(function () {
                         top.layer.close(index);
                         top.layer.msg("用户添加成功！");

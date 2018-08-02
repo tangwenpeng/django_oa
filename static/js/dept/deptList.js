@@ -5,10 +5,10 @@ layui.use(['form','layer','table','laytpl'],function(){
         laytpl = layui.laytpl,
         table = layui.table;
 
-    //用户列表
+    //部门列表
     var tableIns = table.render({
         elem: '#deptList',
-        url : '/static/json/deptList.json',
+        url : '/app/dept/',
         cellMinWidth : 95,
         page : true,
         height : "full-125",
@@ -19,7 +19,7 @@ layui.use(['form','layer','table','laytpl'],function(){
             {field: 'department_num', title: '部门编号', minWidth:100, align:"center"},
             {field: 'department', title: '部门名称', align:'center'},
             {field: 'higher_id', title: '上级部门', align:'center',minWidth:150},
-            {field: 'description', title: '备注信息', align:'center',minWidth:150},
+            {field: 'description', title: '部门简介', align:'center',minWidth:150},
             {title: '操作', minWidth:175, templet:'#deptListBar',fixed:"right",align:"center"}
         ]]
     });
@@ -72,61 +72,16 @@ layui.use(['form','layer','table','laytpl'],function(){
     }
     $(".addNews_btn").click(function(){
         addDept();
-    })
+    });
 
-    //批量删除
-    /*
-    $(".delAll_btn").click(function(){
-        var checkStatus = table.checkStatus('userListTable'),
-            data = checkStatus.data,
-            newsId = [];
-        if(data.length > 0) {
-            for (var i in data) {
-                newsId.push(data[i].newsId);
-            }
-            layer.confirm('确定删除选中的用户？', {icon: 3, title: '提示信息'}, function (index) {
-                // $.get("删除文章接口",{
-                //     newsId : newsId  //将需要删除的newsId作为参数传入
-                // },function(data){
-                tableIns.reload();
-                layer.close(index);
-                // })
-            })
-        }else{
-            layer.msg("请选择需要删除的用户");
-        }
-    });*/
 
     //列表操作
     table.on('tool(userList)', function(obj){
         var layEvent = obj.event,
             data = obj.data;
-
         if(layEvent === 'edit'){ //编辑
             addDept(data);
-        }
-        /*else if(layEvent === 'usable'){ //启用禁用
-            var _this = $(this),
-                usableText = "是否确定禁用此用户？",
-                btnText = "已禁用";
-            if(_this.text()=="已禁用"){
-                usableText = "是否确定启用此用户？",
-                btnText = "已启用";
-            }
-            layer.confirm(usableText,{
-                icon: 3,
-                title:'系统提示',
-                cancel : function(index){
-                    layer.close(index);
-                }
-            },function(index){
-                _this.text(btnText);
-                layer.close(index);
-            },function(index){
-                layer.close(index);
-            });
-        }*/
-        else if(layEvent === 'del'){ //删除
+        } else if(layEvent === 'del'){ //删除
             layer.confirm('确定删除此用户？',{icon:3, title:'提示信息'},function(index){
                 // $.get("删除文章接口",{
                 //     newsId : data.newsId  //将需要删除的newsId作为参数传入
