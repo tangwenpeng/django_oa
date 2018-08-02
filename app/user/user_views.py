@@ -61,9 +61,10 @@ def dept(request):
             temp['department'] = depart.department
             # 上级部门名称
             if depart.higher_id:
-                temp['higher_id'] = Department.objects.get(d_id=depart.higher_id).department
+                temp['higher_department'] = Department.objects.get(d_id=depart.higher_id).department
+                temp['higher_id'] = depart.higher_id
             else:
-                temp['higher_id'] = None
+                temp['higher_id'] = 0
             # 部门简介
             temp['description'] = depart.description
             departments_list.append(temp)
@@ -80,6 +81,7 @@ def dept_add(request):
     """
     if request.method == 'GET':
         departments = Department.objects.filter(is_delete=0)
+
         return render(request, 'dept/deptAdd.html', {'departments': departments})
     if request.method == 'POST':
         msg = {
@@ -87,7 +89,12 @@ def dept_add(request):
             'msg': '请求成功'
         }
         data = request.POST.dict()
-        department = Department()
+        d_num = data.get('department_num')
+        department = Department.objects.filter(department_num=d_num)
+        if department:
+            department = department.first()
+        else:
+            department = Department()
         department.department = data.get('department')
         department.department_num = data.get('department_num')
         department.higher_id = data.get('higher_id')
@@ -96,11 +103,20 @@ def dept_add(request):
         return JsonResponse(msg)
 
 
-def dept_info(request):
+def dept_del(request):
     """
-    显示用户部门
+    删除部门
     :param request:
     :return:
     """
-    if request.method == 'GET':
-        return render(request, 'dept/deptInfo.html')
+    if request.method == 'POST':
+        data = request.POST.dict()
+        d_num = data.get('department_num')
+        department = Department.objects.get(department_num=d_num)
+        department.is_delete = 1
+        department.save()
+        msg = {
+            "code": 0,
+            "msg": "",
+        }
+        return JsonResponse(msg)

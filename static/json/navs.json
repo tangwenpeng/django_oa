@@ -1,30 +1,6 @@
 {
 	"contentManagement": [
 		{
-			"title": "文章列表",
-			"icon": "icon-text",
-			"href": "/static/page/news/newsList.html",
-			"spread": false
-		},
-		{
-			"title": "公告管理",
-			"icon": "&#xe634;",
-			"href": "/static/page/notice/newNotice.html",
-			"spread": false
-		},
-		{
-			"title": "新闻管理",
-			"icon": "&#xe634;",
-			"href": "/static/page/img/images.html",
-			"spread": false
-		},
-		{
-			"title": "图片管理",
-			"icon": "&#xe634;",
-			"href": "/static/page/img/images.html",
-			"spread": false
-		},
-		{
 			"title": "组织管理",
 			"icon": "&#xe653;",
 			"href": "/static/page/",
@@ -50,6 +26,31 @@
 				}
 			]
 		},
+		{
+			"title": "文章列表",
+			"icon": "icon-text",
+			"href": "/static/page/news/newsList.html",
+			"spread": false
+		},
+		{
+			"title": "公告管理",
+			"icon": "&#xe634;",
+			"href": "/static/page/notice/newNotice.html",
+			"spread": false
+		},
+		{
+			"title": "新闻管理",
+			"icon": "&#xe634;",
+			"href": "/static/page/img/images.html",
+			"spread": false
+		},
+		{
+			"title": "图片管理",
+			"icon": "&#xe634;",
+			"href": "/static/page/img/images.html",
+			"spread": false
+		},
+
 		{
 			"title": "薪资管理",
 			"icon": "&#xe65e;",

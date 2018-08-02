@@ -21,6 +21,7 @@
             <label class="layui-form-label">上级部门</label>
             <div class="layui-input-block">
                 <select name="higher_id" class="higher_id" lay-filter="higher_id">
+{#                <option value="0"></option>#}
                     {% for depart in departments %}
                         <option value="{{ depart.d_id }}">{{ depart.department }}</option>
                     {% endfor %}
@@ -28,26 +29,26 @@
             </div>
         </div>
     </div>
+
     <div class="layui-form-item layui-row">
         <div class="layui-inline layui-col-xs5">
             <label class="layui-form-label">部门名称</label>
             <div class="layui-input-block">
-                <input type="text" class="layui-input" name="department" lay-verify="required" placeholder="请输入部门名称">
+                <input type="text" class="layui-input department" name="department" lay-verify="required" placeholder="请输入部门名称">
             </div>
         </div>
         <div class="layui-inline layui-col-xs5">
             <label class="layui-form-label">部门编号</label>
             <div class="layui-input-block">
-                <input type="text" class="layui-input" name="department_num" lay-verify="required" placeholder="请输入部门编号">
+                <input type="text" class="layui-input department_num" name="department_num" lay-verify="required" placeholder="请输入部门编号">
             </div>
         </div>
     </div>
 
-
     <div class="layui-form-item layui-row layui-col-xs12">
         <label class="layui-form-label">部门简介</label>
         <div class="layui-input-block">
-            <textarea name="description" placeholder="请输入部门简介" class="layui-textarea"></textarea>
+            <textarea class="layui-textarea description" placeholder="请输入部门简介"></textarea>
         </div>
     </div>
     <div class="layui-form-item layui-row layui-col-xs12">
