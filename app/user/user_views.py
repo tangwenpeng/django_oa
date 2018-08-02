@@ -4,15 +4,23 @@ from django.shortcuts import render
 from app.models import Department
 
 
-def user_list(request):
+def user(request):
     """
     显示用户页面
     :param request:
     :return:
     """
     if request.method == 'GET':
-        return render(request, 'user/userList.html')
+        return render(request, 'user/user.html')
 
+def user_list(request):
+    """
+    显示用户列表
+    :param request:
+    :return:
+    """
+    if request.method == 'GET':
+        return JsonResponse('123')
 
 def user_add(request):
     """

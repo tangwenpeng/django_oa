@@ -12,6 +12,7 @@ urlpatterns = [
     url(r'check_salary/', salary_views.check_salary, name='check_salary'),
 
     # 用户模块
+    url(r'^user/$', user_views.user, name='user'),
     url(r'^user_list/$', user_views.user_list, name='user_list'),
     url(r'^user_add/$', user_views.user_add, name='user_add'),
     url(r'^user_info/$', user_views.user_info, name='user_info'),

@@ -250,7 +250,7 @@ class Salary(models.Model):
 
 
 class User(models.Model):
-    user_id = models.AutoField(primary_key=True)
+    user_id = models.AutoField(primary_key=True)  # 用户
     m = models.ForeignKey(Meeting, models.DO_NOTHING, blank=True, null=True)
     d = models.ForeignKey(Department, models.DO_NOTHING, blank=True, null=True)
     job_number = models.CharField(max_length=32)
