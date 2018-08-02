@@ -1,0 +1,20 @@
+Index: app/models.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/models.py	(revision edd83d90dc58e6b2599fb339791fe10d41f86a80)
++++ app/models.py	(date 1533173228932)
+@@ -230,10 +230,12 @@
+ 
+     def to_dict(self):
+         """转化为字典可以给前端传"""
++
+         return {
+             'jonNumber': self.jon_number,
+             'userName': self.name,
+             'basic_salary': self.basic_salary,
++            'department': self.name,
+             'deduct_salary': self.deduct_salary,
+             'allowance': self.allowance,
+             'award': self.award,

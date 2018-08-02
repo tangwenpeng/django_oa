@@ -216,7 +216,8 @@ class Salary(models.Model):
     s_id = models.AutoField(primary_key=True)                                       # 自增字段
     user = models.ForeignKey('User', models.DO_NOTHING, blank=True, null=True)     # 关联到用户表
     salary_id = models.IntegerField()                                                # 薪水ID
-    jon_number = models.CharField(max_length=32)                                     # 员工编号
+    time = models.DateField()                                                        # 工资当发时间
+    job_number = models.CharField(max_length=32)                                     # 员工编号
     name = models.CharField(max_length=64)                                           # 员工姓名
     basic_salary = models.FloatField()                                               # 基础薪资
     deduct_salary = models.FloatField()                                              # 应扣工资
@@ -232,9 +233,12 @@ class Salary(models.Model):
 
     def to_dict(self):
         """转化为字典可以给前端传"""
+        user = User.objects.filter(job_number=self.job_number).first()
         return {
-            'jonNumber': self.jon_number,
+            'jobNumber': self.job_number,
+            'time': self.time,
             'userName': self.name,
+            'staff_department': user.d.department,
             'basic_salary': self.basic_salary,
             'deduct_salary': self.deduct_salary,
             'allowance': self.allowance,
