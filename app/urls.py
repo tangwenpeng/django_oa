@@ -1,6 +1,6 @@
 from django.conf.urls import url
 
-from app import views, salary_views
+from app import views, user_views,salary_views
 
 urlpatterns = [
     url(r'^index/', views.index, name='index'),
@@ -8,5 +8,15 @@ urlpatterns = [
     # 薪资展示接口
     url(r'^salary/', salary_views.salary, name='salary'),
 
+    # 用户模块
+    url(r'^user_list/$', user_views.user_list, name='user_list'),
+    url(r'^user_add/$', user_views.user_add, name='user_add'),
+    url(r'^user_info/$', user_views.user_info, name='user_info'),
+
+    # 部门模块
+    url(r'^dept$', user_views.dept, name='dept'),
+    url(r'^dept_list/$', user_views.dept_list, name='dept_list'),
+    url(r'^dept_add/$', user_views.dept_add, name='dept_add'),
+    url(r'^dept_info/$', user_views.dept_info, name='dept_info'),
 ]
 
