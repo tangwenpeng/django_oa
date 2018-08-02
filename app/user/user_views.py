@@ -1,7 +1,7 @@
 from django.http import JsonResponse
 from django.shortcuts import render
 
-from app.models import Department
+from app.models import Department,User,Role,UserRole
 
 
 def user(request):
@@ -20,7 +20,26 @@ def user_list(request):
     :return:
     """
     if request.method == 'GET':
-        return JsonResponse('123')
+        users = User.objects.filter(is_delete=0)
+        user_list = []
+        msg = {
+            "code": 0,
+            "msg": "",
+            "count": len(users),  # 所有部门总数
+        }
+        for user in users:
+            temp = dict()
+            temp['name'] = user.name
+            temp['sex'] = '女' if user.sex else '男'
+            temp['job_number'] = user.job_number
+            temp['department'] = Department.objects.get(d_id=user.d_id).department
+            temp['email'] = user.email
+            temp['phone'] = user.phone
+            temp['role'] = user.role.first().post if user.role.all() else None
+            temp['office_phone'] = user.office_phone
+            user_list.append(temp)
+        msg['data'] = user_list
+        return JsonResponse(msg)
 
 def user_add(request):
     """

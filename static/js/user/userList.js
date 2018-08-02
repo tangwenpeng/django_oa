@@ -8,7 +8,7 @@ layui.use(['form','layer','table','laytpl'],function(){
     //用户列表
     var tableIns = table.render({
         elem: '#userList',
-        url : '../../json/userList.json',
+        url : '/app/user_list/',
         cellMinWidth : 95,
         page : true,
         height : "full-125",
@@ -17,28 +17,17 @@ layui.use(['form','layer','table','laytpl'],function(){
         id : "userListTable",
         cols : [[
             {type: "checkbox", fixed:"left", width:50},
-            {field: 'userName', title: '用户名', minWidth:100, align:"center"},
-            {field: 'userEmail', title: '用户邮箱', minWidth:200, align:'center',templet:function(d){
-                return '<a class="layui-blue" href="mailto:'+d.userEmail+'">'+d.userEmail+'</a>';
+            {field: 'job_number', title: '工号', width:60, align:"center"},
+            {field: 'name', title: '姓名', width:100, align:"center"},
+            {field: 'sex', title: '性别',width:60, align:'center'},
+            {field: 'department', title: '所在部门', minWidth:100, align:"center"},
+            {field: 'role', title: '职位', minWidth:100, align:"center"},
+            {field: 'phone', title: '手机号码', minWidth:130,align:'center'},
+            {field: 'office_phone', title: '办公电话',minWidth:130, align:'center'},
+            {field: 'email', title: '电子邮箱', minWidth:150, align:'center',templet:function(d){
+                return '<a class="layui-blue" href="mailto:'+d.email+'">'+d.email+'</a>';
             }},
-            {field: 'userSex', title: '用户性别', align:'center'},
-            {field: 'userStatus', title: '用户状态',  align:'center',templet:function(d){
-                return d.userStatus == "0" ? "正常使用" : "限制使用";
-            }},
-            {field: 'userGrade', title: '用户等级', align:'center',templet:function(d){
-                if(d.userGrade == "0"){
-                    return "注册会员";
-                }else if(d.userGrade == "1"){
-                    return "中级会员";
-                }else if(d.userGrade == "2"){
-                    return "高级会员";
-                }else if(d.userGrade == "3"){
-                    return "钻石会员";
-                }else if(d.userGrade == "4"){
-                    return "超级会员";
-                }
-            }},
-            {field: 'userEndTime', title: '最后登录时间', align:'center',minWidth:150},
+
             {title: '操作', minWidth:175, templet:'#userListBar',fixed:"right",align:"center"}
         ]]
     });
