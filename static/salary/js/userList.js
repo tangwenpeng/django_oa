@@ -14,11 +14,13 @@ layui.use(['form','layer','table','laytpl'],function(){
         height : "full-125",
         limits : [10,15,20,25],
         limit : 20,
-        // id : "userListTable",
+        id : "salaryListTable",
         cols : [[
             {type: "checkbox", fixed:"left", width:50},
-            {field: 'jonNumber', title: '员工编号', minWidth:100, align:"center"},
+            {field: 'time', title: '时间', minWidth:120, align:"center"},
+            {field: 'jobNumber', title: '员工编号', minWidth:100, align:"center"},
             {field: 'userName', title: '员工姓名', minWidth:100, align:"center"},
+            {field: 'staff_department', title: '所属部门', minWidth:100, align:"center"},
             {field: 'basic_salary', title: '基础薪资', minWidth:100, align:"center"},
             {field: 'deduct_salary', title: '应扣工资', minWidth:100, align:"center"},
             {field: 'allowance', title: '津贴', minWidth:100, align:"center"},
@@ -133,11 +135,11 @@ layui.use(['form','layer','table','laytpl'],function(){
             addUser(data);
         }else if(layEvent === 'usable'){ //启用禁用
             var _this = $(this),
-                usableText = "是否确定禁用此用户？",
-                btnText = "已禁用";
-            if(_this.text()=="已禁用"){
-                usableText = "是否确定启用此用户？",
-                btnText = "已启用";
+                usableText = "工资已发放",
+                btnText = "已发放";
+            if(_this.text()=="未发放"){
+                usableText = "是否发放工资？",
+                btnText = "已发放";
             }
             layer.confirm(usableText,{
                 icon: 3,
@@ -160,7 +162,32 @@ layui.use(['form','layer','table','laytpl'],function(){
                     layer.close(index);
                 // })
             });
+        }else if(layEvent === 'check'){
+            var index = layui.layer.open({
+            title : "查看工资",
+            area: ['900px', '500px'],
+            // area: ['auto'],
+            type : 2,
+            content : "/app/check_salary/",
+            success : function(layero, index){
+                // var body = layui.layer.getChildFrame('body', index);
+                // if(edit){
+                //     body.find(".userName").val(edit.userName);  //登录名
+                //     body.find(".userEmail").val(edit.userEmail);  //邮箱
+                //     body.find(".userSex input[value="+edit.userSex+"]").prop("checked","checked");  //性别
+                //     body.find(".userGrade").val(edit.userGrade);  //会员等级
+                //     body.find(".userStatus").val(edit.userStatus);    //用户状态
+                //     body.find(".userDesc").text(edit.userDesc);    //用户简介
+                //     form.render();
+                // }
+                setTimeout(function(){
+                    layui.layer.tips('点击此处返回薪资列表', '.layui-layer-setwin .layui-layer-close', {
+                        tips: 3
+                    });
+                },500)
+            }
+        })
         }
     });
 
-})
+});

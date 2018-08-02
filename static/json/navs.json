@@ -1,6 +1,32 @@
 {
 	"contentManagement": [
 		{
+			"title": "组织管理",
+			"icon": "&#xe653;",
+			"href": "/static/page/",
+			"spread": false,
+			"children": [
+				{
+					"title": "用户管理",
+					"icon": "&#xe61c;",
+					"href": "/app/user/",
+					"spread": false
+				},
+				{
+					"title": "岗位管理",
+					"icon": "&#xe609;",
+					"href": "/app/user_list/",
+					"spread": false
+				},
+				{
+					"title": "部门管理",
+					"icon": "&#xe609;",
+					"href": "/app/dept/",
+					"spread": false
+				}
+			]
+		},
+		{
 			"title": "文章列表",
 			"icon": "icon-text",
 			"href": "/static/page/news/newsList.html",
@@ -24,32 +50,7 @@
 			"href": "/static/page/img/images.html",
 			"spread": false
 		},
-		{
-			"title": "组织管理",
-			"icon": "&#xe653;",
-			"href": "/static/page/",
-			"spread": false,
-			"children": [
-				{
-					"title": "用户管理",
-					"icon": "&#xe61c;",
-					"href": "/app/user_list/",
-					"spread": false
-				},
-				{
-					"title": "岗位管理",
-					"icon": "&#xe609;",
-					"href": "/app/user_list/",
-					"spread": false
-				},
-				{
-					"title": "部门管理",
-					"icon": "&#xe609;",
-					"href": "/app/dept_list/",
-					"spread": false
-				}
-			]
-		},
+
 		{
 			"title": "薪资管理",
 			"icon": "&#xe65e;",
