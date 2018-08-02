@@ -31,4 +31,14 @@ def check_salary(request):
         return render(request, 'salary/check_salary.html')
 
 
+def change_status(request):
+    """改变工资发放状态"""
+    if request.method == 'POST':
+        status = request.POST.get('status')
+        job_number = request.POST.get('data[jobNumber]')
+        salary_info = Salary.objects.filter(job_number=job_number).first()
+
+        salary_info.salary_status = status
+        salary_info.save()
+        return JsonResponse({'code': 200})
 

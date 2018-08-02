@@ -226,6 +226,8 @@ class Salary(models.Model):
     five_insurance = models.FloatField()                                             # 五险
     provident_fund = models.FloatField()                                             # 公积金
     real_salary = models.FloatField()                                                # 实际工资
+    salary_status = models.Field(choices=((1, '未发放'), (2, '已发放'),),
+                                 default='未发放')                                              # 工资发放状态
 
     class Meta:
         managed = False
@@ -238,14 +240,15 @@ class Salary(models.Model):
             'jobNumber': self.job_number,
             'time': self.time,
             'userName': self.name,
-            'staff_department': user.d.department,
+            'staff_department': user.department,
             'basic_salary': self.basic_salary,
             'deduct_salary': self.deduct_salary,
             'allowance': self.allowance,
             'award': self.award,
             'five_insurance': self.five_insurance,
             'provident_fund': self.provident_fund,
-            'real_salary': self.real_salary
+            'real_salary': self.real_salary,
+            'salary_status': self.salary_status,
         }
 
 

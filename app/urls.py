@@ -10,6 +10,8 @@ urlpatterns = [
     # 薪资模块
     url(r'^salary/', salary_views.salary, name='salary'),
     url(r'check_salary/', salary_views.check_salary, name='check_salary'),
+    url(r'change_status/', salary_views.change_status, name='change_status'),
+
 
     # 用户模块
     url(r'^user_list/$', user_views.user_list, name='user_list'),
