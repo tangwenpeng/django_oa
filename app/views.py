@@ -5,6 +5,9 @@ from django.shortcuts import render
 '''
 首页
 '''
+
+
 def index(request):
+    """"""
     if request.method == 'GET':
         return render(request, 'index.html')

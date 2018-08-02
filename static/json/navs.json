@@ -25,6 +25,32 @@
 			"spread": false
 		},
 		{
+			"title": "组织管理",
+			"icon": "&#xe653;",
+			"href": "/static/page/",
+			"spread": false,
+			"children": [
+				{
+					"title": "用户管理",
+					"icon": "&#xe61c;",
+					"href": "/app/user_list/",
+					"spread": false
+				},
+				{
+					"title": "岗位管理",
+					"icon": "&#xe609;",
+					"href": "/app/user_list/",
+					"spread": false
+				},
+				{
+					"title": "部门管理",
+					"icon": "&#xe609;",
+					"href": "/app/dept_list/",
+					"spread": false
+				}
+			]
+		},
+		{
 			"title": "薪资管理",
 			"icon": "&#xe65e;",
 			"href": "/static/page/",
@@ -45,7 +71,7 @@
 				{
 					"title": "薪资发放",
 					"icon": "&#xe609;",
-					"href": "/static/page",
+					"href": "/app/pay_salary/",
 					"spread": false
 				}
 			]
@@ -72,6 +98,8 @@
 			]
 		}
 	],
+
+
 	"memberCenter": [
 		{
 			"title": "用户中心",
@@ -98,32 +126,14 @@
 			"href": "/static/page/systemSetting/logs.html",
 			"spread": false
 		},{
-			"title": "友情链接",
-			"icon": "&#xe64c;",
-			"href": "/static/page/systemSetting/linkList.html",
-			"spread": false
-		},{
 			"title": "图标管理",
 			"icon": "&#xe857;",
 			"href": "/static/page/systemSetting/icons.html",
 			"spread": false
-		}
-	],
-	"seraphApi": [
-		{
-			"title": "三级联动模块",
-			"icon": "icon-mokuai",
-			"href": "/static/page/doc/addressDoc.html",
-			"spread": false
 		},{
-			"title": "bodyTab模块",
-			"icon": "icon-mokuai",
-			"href": "/static/page/doc/bodyTabDoc.html",
-			"spread": false
-		},{
-			"title": "三级菜单",
-			"icon": "icon-mokuai",
-			"href": "/static/page/doc/navDoc.html",
+			"title": "菜单管理",
+			"icon": "&#xe857;",
+			"href": "/static/page/menu/menuList.html",
 			"spread": false
 		}
 	]

@@ -54,11 +54,13 @@ class AttendanceStatistics(models.Model):
 
 
 class Department(models.Model):
-    d_id = models.AutoField(primary_key=True)
-    department_id = models.IntegerField()
-    department = models.CharField(max_length=64)
-    higher_id = models.IntegerField()
-    description = models.CharField(max_length=256, blank=True, null=True)
+    """部门"""
+    d_id = models.AutoField(primary_key=True)  # 主键id
+    department_num = models.CharField(max_length=32)  # 部门编号
+    department = models.CharField(max_length=64)  # 部门名称
+    higher_id = models.IntegerField()  # 上级部门id
+    description = models.CharField(max_length=256, blank=True, null=True)  # 部门描述
+    is_delete = models.IntegerField(default=0)
 
     class Meta:
         managed = False
@@ -141,7 +143,22 @@ class Meeting(models.Model):
 
 
 class Menu(models.Model):
-    menu_id = models.AutoField(primary_key=True)
+    menu_id = models.AutoField(primary_key=True)  # 编号
+    pid = models.IntegerField(blank=True, null=True)  # 父级编号
+    menu_name = models.CharField(max_length=64, blank=True, null=True)  # 菜单名称
+    menu_type = models.IntegerField(blank=True, null=True)  # 菜单类型
+    menu_level = models.IntegerField(blank=True, null=True)  # 菜单层次级别
+    sort = models.IntegerField(blank=True, null=True)  # 排序
+    menu_href = models.CharField(max_length=1024, blank=True, null=True)  # 菜单链接
+    menu_icon = models.CharField(max_length=100, blank=True, null=True)  # 菜单图标
+    permission = models.CharField(max_length=256, blank=True, null=True)  # 权限标识(权限值)
+    request_method = models.CharField(max_length=16, blank=True, null=True)  # 请求方法
+    request_arguments = models.CharField(max_length=512, blank=True, null=True)  # 请求必带参数
+    request_arguments2 = models.CharField(max_length=512, blank=True, null=True)  # 请求必须带有某些值参数
+    hook_function = models.CharField(max_length=256, blank=True, null=True)  # 自定义钩子函数
+    is_del = models.IntegerField(blank=True, null=True)  # 是否删除
+    create_time = models.DateTimeField(auto_now_add=True, blank=True, null=True)  # 创建时间
+    update_time = models.DateTimeField(auto_now=True, blank=True, null=True)  # 更改时间
 
     class Meta:
         managed = False
@@ -196,22 +213,36 @@ class RoleMenu(models.Model):
 
 
 class Salary(models.Model):
-    s_id = models.AutoField(primary_key=True)
-    user = models.ForeignKey('User', models.DO_NOTHING, blank=True, null=True)
-    salary_id = models.IntegerField()
-    jon_number = models.CharField(max_length=32)
-    name = models.CharField(max_length=64)
-    basic_salary = models.FloatField()
-    deduct_salary = models.FloatField()
-    allowance = models.FloatField()
-    award = models.FloatField()
-    five_insurance = models.FloatField()
-    provident_fund = models.FloatField()
-    real_salary = models.FloatField()
+    s_id = models.AutoField(primary_key=True)                                       # 自增字段
+    user = models.ForeignKey('User', models.DO_NOTHING, blank=True, null=True)     # 关联到用户表
+    salary_id = models.IntegerField()                                                # 薪水ID
+    jon_number = models.CharField(max_length=32)                                     # 员工编号
+    name = models.CharField(max_length=64)                                           # 员工姓名
+    basic_salary = models.FloatField()                                               # 基础薪资
+    deduct_salary = models.FloatField()                                              # 应扣工资
+    allowance = models.FloatField()                                                  # 津贴
+    award = models.FloatField()                                                      # 奖金
+    five_insurance = models.FloatField()                                             # 五险
+    provident_fund = models.FloatField()                                             # 公积金
+    real_salary = models.FloatField()                                                # 实际工资
 
     class Meta:
         managed = False
         db_table = 'salary'
+
+    def to_dict(self):
+        """转化为字典可以给前端传"""
+        return {
+            'jonNumber': self.jon_number,
+            'userName': self.name,
+            'basic_salary': self.basic_salary,
+            'deduct_salary': self.deduct_salary,
+            'allowance': self.allowance,
+            'award': self.award,
+            'five_insurance': self.five_insurance,
+            'provident_fund': self.provident_fund,
+            'real_salary': self.real_salary
+        }
 
 
 class User(models.Model):
