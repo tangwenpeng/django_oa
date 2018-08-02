@@ -16,12 +16,19 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 from django.contrib.staticfiles.urls import static
+from rest_framework.routers import SimpleRouter
 
 from django_oa.settings import MEDIA_URL, MEDIA_ROOT
+from app.menu.menu_views import MenuViewSet
+
+router = SimpleRouter()
+# 菜单列表
+router.register('menu/', MenuViewSet, base_name='menu')
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^app/', include('app.urls', namespace='app')),
 ]
 urlpatterns += static(MEDIA_URL, document_root=MEDIA_ROOT)
+urlpatterns += router.urls
 
