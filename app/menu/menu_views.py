@@ -1,17 +1,24 @@
-from rest_framework import viewsets
-from rest_framework.response import Response
-from rest_framework.views import APIView
+import json
 
-from app.menu.serializers import MenuSerializer
+from django.http import JsonResponse
+from django.shortcuts import render
+
 from app.models import Menu
-from app.plugin.auth.permissions import check_permission
 
 
-# @check_permission
-class MenuViewSet(APIView):
-    queryset = Menu.objects.all()
-    serializer_class = MenuSerializer
+def menu_list(request):
+    """菜单列表"""
+    if request.method == 'GET':
+        return render(request, 'menu/menuList.html')
 
-    def get(self, request):
-        menu_list = MenuSerializer(self.queryset)
-        return Response(menu_list.data)
+
+def add_menu(request):
+    """添加菜单"""
+    if request.method == 'GET':
+        return render(request, 'menu/menuAdd.html')
+
+
+
+def menu_json_list(request):
+
+    return JsonResponse('404')

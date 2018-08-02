@@ -1,6 +1,8 @@
 from django.conf.urls import url
 
 from app import views
+from app.meeting import meeting_views
+from app.menu import menu_views
 from app.salary import salary_views
 from app.user import user_views
 
@@ -14,14 +16,27 @@ urlpatterns = [
 
 
     # 用户模块
+    url(r'^user/$', user_views.user, name='user'),
     url(r'^user_list/$', user_views.user_list, name='user_list'),
     url(r'^user_add/$', user_views.user_add, name='user_add'),
     url(r'^user_info/$', user_views.user_info, name='user_info'),
 
     # 部门模块
-    url(r'^dept/$', user_views.dept, name='dept'),  # 部门信息
-    url(r'^dept_list/$', user_views.dept_list, name='dept_list'),  # 部门页面
+    url(r'^dept/$', user_views.dept, name='dept'),  # 部门页面
+    url(r'^dept_list/$', user_views.dept_list, name='dept_list'),  # 部门信息
     url(r'^dept_add/$', user_views.dept_add, name='dept_add'),  # 添加部门
+    url(r'^dept_del/$', user_views.dept_del, name='dept_del'),  # 部门详细信息
+
+    url(r'^menu_list/', menu_views.menu_list, name='menu_list'),
+    url(r'^add_menu/', menu_views.add_menu, name='add_menu'),
+    url(r'^menu_json_list/', menu_views.menu_json_list, name='menu_json_list'),
+
     url(r'^dept_info/$', user_views.dept_info, name='dept_info'),  # 部门详细信息
+
+    # 会议模块
+    url(r'my_meeting/$', meeting_views.my_meeting, name='my_meeting'),  # 我的会议页面
+    url(r'meeting_list/$', meeting_views.meeting_list, name='meeting_list'),  # 我的会议信息
+    url(r'meeting_appointment/$', meeting_views.meeting_appointment, name='meeting_appointment'),  # 会议预约
+
 ]
 
