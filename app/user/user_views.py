@@ -51,6 +51,30 @@ def user_add(request):
     if request.method == 'GET':
         roles = Role.objects.filter(is_delete=0)
         return render(request, 'user/userAdd.html', {'roles':roles})
+    if request.method == 'POST':
+        data = request.POST.dict()
+        user_id = data.get('user_id')
+        if user_id:
+            user = User.objects.get(user_id)
+        else:
+            user = User()
+            user.job_number = data['job_number']
+            user.sex = data['sex']
+            user.phone = data['phone']
+            user.office_phone = data['office_phone']
+            user.email = data['email']
+            department = Department.objects.get(d_id = data['department'])
+            user.d = department
+            user.save()
+            role = Role.objects.get(data['role'])
+            UserRole.objects.create(user=user,role=role)
+
+
+        msg = {
+            'code' : 0,
+            'msg' : '添加成功'
+        }
+        return JsonResponse(msg)
 
 def user_del(request):
     """
@@ -123,6 +147,7 @@ def dept_list(request):
         # 将部门信息组装成字典格式传至前端
         msg['data'] = departments_list
         return JsonResponse(msg)
+
 
 def dept_tree(request):
     if request.method == 'GET':

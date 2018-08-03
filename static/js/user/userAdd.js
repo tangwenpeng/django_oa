@@ -5,29 +5,51 @@ layui.use(['form', 'layer', 'tree'], function () {
         $ = layui.jquery;
 
     form.on("submit(addUser)", function (data) {
-        // 弹出loading
+        //弹出loading
         var index = top.layer.msg('数据提交中，请稍候', {icon: 16, time: false, shade: 0.8});
-        // 实际使用时的提交信息
-        $.post("/app/user_add", {
-            userName: $(".userName").val(),  //登录名
-            userEmail: $(".userEmail").val(),  //邮箱
-            userSex: data.field.sex,  //性别
-            userGrade: data.field.userGrade,  //会员等级
-            userStatus: data.field.userStatus,    //用户状态
-            newsTime: submitTime,    //添加时间
-            userDesc: $(".userDesc").text(),    //用户简介
-        }, function (res) {
-
+        var csrf = $('input[name="csrfmiddlewaretoken"]').val();
+        $.ajax({
+            url: '/app/user_add/',
+            type: 'POST',
+            data: {
+                name: $(".nameame").val(),  //姓名
+                job_number: $(".job_number").val(),  //工号
+                sex: data.field.sex,  //性别
+                department: data.field.department,  //部门
+                role: data.field.role,  //部门
+                phone: $(".phone").val(),    // 电话
+                office_phone: $(".office_phone").val(),    //办公电话
+                email: $(".email").val(),    // 邮箱
+            },
+            dataType: 'json',
+            headers: {'X-CSRFToken': csrf},
+            success: function (msg) {
+                if (msg.code == 0) {
+                    setTimeout(function () {
+                        top.layer.close(index);
+                        top.layer.msg("用户添加成功！");
+                        layer.closeAll("iframe");
+                        //刷新父页面
+                        parent.location.reload();
+                    }, 1000);
+                }
+            },
+            error: function (msg) {
+                alert('请求失败');
+            },
         });
-        setTimeout(function () {
-            top.layer.close(index);
-            top.layer.msg("用户添加成功！");
-            layer.closeAll("iframe");
-            //刷新父页面
-            parent.location.reload();
-        }, 2000);
         return false;
-    })
+    });
+
+
+
+
+
+
+
+
+
+
 
     $.get('/app/dept_tree/', function (msg) {
         tree({

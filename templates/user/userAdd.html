@@ -52,7 +52,7 @@
 </head>
 <body class="childrenBody">
 <form class="layui-form" style="width:80%;">
-
+{% csrf_token %}
 
     <div class="layui-row">
 		<div class="magb15 layui-col-md5 layui-col-xs12">
@@ -89,7 +89,7 @@
                 <div class="layui-unselect layui-form-select select-dept downpanel">
                     <div class="layui-select-title layui-select-dept">
                         <span class="layui-input layui-unselect" id="treeclass">总经办</span>
-                        <input type="hidden" name="higher_id" value="0">
+                        <input type="hidden" name="department" class='department' value="0">
                         <i class="layui-edge"></i>
                     </div>
                     <dl class="layui-anim layui-anim-upbit">
@@ -117,21 +117,21 @@
 		<div class="magb15 layui-col-md4 layui-col-xs12">
 			<label class="layui-form-label">联系电话</label>
             <div class="layui-input-block">
-                <input type="text" class="layui-input job_number" name="job_number" lay-verify="required"
+                <input type="text" class="layui-input phone" name="phone" lay-verify="required"
                        placeholder="请输入联系电话">
             </div>
 		</div>
         <div class="magb15 layui-col-md4 layui-col-xs12">
 			<label class="layui-form-label">办公电话</label>
             <div class="layui-input-block">
-                <input type="text" class="layui-input job_number" name="job_number" lay-verify="required"
+                <input type="text" class="layui-input office_phone" name="office_phone" lay-verify="required"
                        placeholder="请输入办公电话">
             </div>
 		</div>
         <div class="magb15 layui-col-md4 layui-col-xs12">
 			<label class="layui-form-label">电子邮箱</label>
             <div class="layui-input-block">
-                <input type="text" class="layui-input job_number" name="job_number" lay-verify="required"
+                <input type="text" class="layui-input email" name="email" lay-verify="required"
                        placeholder="请输入电子邮箱">
             </div>
 		</div>
