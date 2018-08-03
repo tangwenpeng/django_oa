@@ -1,27 +1,30 @@
-layui.use(['form', 'layer', 'table', 'laytpl'], function () {
+layui.use(['form', 'layer', 'table', 'laytpl','treeGrid'], function () {
     var form = layui.form,
         layer = parent.layer === undefined ? layui.layer : top.layer,
         $ = layui.jquery,
         laytpl = layui.laytpl,
-        table = layui.table;
+        table = layui.table,
+        treeGrid = layui.treeGrid;
 
     //部门列表
-    var tableIns = table.render({
-        elem: '#deptList',
-        url: '/app/dept_list/',
-        cellMinWidth: 95,
-        page: true,
-        height: "full-125",
-        limits: [10, 15, 20, 25],
-        limit: 20,
-        id: "deptListTable",
-        cols: [[
+    var table = treeGrid.render({
+        elem: '#deptList'
+        , url: '/app/dept_list/'
+        , cellMinWidth: 100
+        , treeId: 'd_id'//树形id字段名称
+        , treeUpId: 'higher_id'//树形父id字段名称
+        , treeShowName: 'department'//以树形式显示的字段
+        , id: "deptListTable"
+        , cols: [[
+            {type: 'checkbox'},
+            {field: 'department', title: '部门名称', width:300},
             {field: 'department_num', title: '部门编号', minWidth: 100, align: "center"},
-            {field: 'department', title: '部门名称', align: 'center'},
-            {field: 'higher_department', title: '上级部门', align: 'center', minWidth: 150},
             {field: 'description', title: '部门简介', align: 'center', minWidth: 150},
             {title: '操作', minWidth: 175, templet: '#deptListBar', fixed: "right", align: "center"}
         ]]
+        , page: false
+
+
     });
 
     //搜索【此功能需要后台配合，所以暂时没有动态效果演示】
@@ -83,16 +86,17 @@ layui.use(['form', 'layer', 'table', 'laytpl'], function () {
             data = obj.data;
         if (layEvent === 'edit') { //编辑
             addDept(data);
+            console.log(data)
         } else if (layEvent === 'del') { //删除
             layer.confirm('确定删除此部门？', {icon: 3, title: '提示信息'}, function (index) {
                 $.ajax({
                     url: '/app/dept_del/',
                     type: 'post',
                     dataType: 'json',
-                    data: {department_num: data.department_num},
+                    data: {d_id: data.d_id},
                     headers: {'X-CSRFToken': csrf},
                     success: function (msg) {
-                        if (msg.code == 0){
+                        if (msg.code == 0) {
                             tableIns.reload();
                             layer.close(index);
                         }

@@ -67,6 +67,7 @@ layui.use(['form', 'layer', 'table', 'laytpl'], function () {
                     body.find(".userDesc").text(edit.userDesc);    //用户简介
                     form.render();
                 }
+
                 setTimeout(function () {
                     layui.layer.tips('点击此处返回用户列表', '.layui-layer-setwin .layui-layer-close', {
                         tips: 3
@@ -106,7 +107,7 @@ layui.use(['form', 'layer', 'table', 'laytpl'], function () {
         } else {
             layer.msg("请选择需要删除的用户");
         }
-    })
+    });
 
     //列表操作
     table.on('tool(userList)', function (obj) {

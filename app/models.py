@@ -199,6 +199,7 @@ class Role(models.Model):
     role_id = models.AutoField(primary_key=True) # 自增id
     post_id = models.IntegerField() # 角色id
     post = models.CharField(max_length=64) # 角色名
+    is_delete = models.IntegerField(default=0)
 
     class Meta:
         managed = False

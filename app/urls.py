@@ -27,6 +27,7 @@ urlpatterns = [
     url(r'^dept_list/$', user_views.dept_list, name='dept_list'),  # 部门信息
     url(r'^dept_add/$', user_views.dept_add, name='dept_add'),  # 添加部门
     url(r'^dept_del/$', user_views.dept_del, name='dept_del'),  # 部门详细信息
+    url(r'^dept_tree/$', user_views.dept_tree, name='dept_tree'),  # 部门详细信息
 
     url(r'^menu_list/', menu_views.menu_list, name='menu_list'),
     url(r'^add_menu/', menu_views.add_menu, name='add_menu'),

@@ -1,3 +1,4 @@
+from django.db.models import Q
 from django.http import JsonResponse
 from django.shortcuts import render
 
@@ -30,7 +31,7 @@ def user_list(request):
         for user in users:
             temp = dict()
             temp['name'] = user.name
-            temp['sex'] = '女' if user.sex else '男'
+            temp['sex'] = '男' if user.sex else '女'
             temp['job_number'] = user.job_number
             temp['department'] = Department.objects.get(d_id=user.d_id).department
             temp['email'] = user.email
@@ -48,7 +49,8 @@ def user_add(request):
     :return:
     """
     if request.method == 'GET':
-        return render(request, 'user/userAdd.html')
+        roles = Role.objects.filter(is_delete=0)
+        return render(request, 'user/userAdd.html', {'roles':roles})
 
 def user_del(request):
     """
@@ -103,6 +105,8 @@ def dept_list(request):
         }
         for depart in departments:
             temp = dict()
+            # 部门id
+            temp['d_id'] = depart.d_id
             # 部门名称
             temp['department_num'] = depart.department_num
             # 部门编号
@@ -119,6 +123,37 @@ def dept_list(request):
         # 将部门信息组装成字典格式传至前端
         msg['data'] = departments_list
         return JsonResponse(msg)
+
+def dept_tree(request):
+    if request.method == 'GET':
+        trees_list = []
+        departs = Department.objects.filter(Q(is_delete=0) & Q(higher_id=0))
+        if departs:
+            for depart in departs:
+                temp = dict()
+                temp['name'] = depart.department
+                temp['id'] = depart.d_id
+                child_departs = Department.objects.filter(Q(is_delete=0) & Q(higher_id=depart.d_id))
+                if child_departs:
+                    child_trees_list = []
+                    for child_depart in child_departs:
+                        child_temp = dict()
+                        child_temp['name'] = child_depart.department
+                        child_temp['id'] = child_depart.d_id
+                        child_trees_list.append(child_temp)
+                        temp['children'] = child_trees_list
+                        c_child_departs = Department.objects.filter(Q(is_delete=0) & Q(higher_id=child_depart.d_id))
+                        if child_departs:
+                            c_child_trees_list = []
+                            for child_depart in c_child_departs:
+                                c_child_temp = dict()
+                                c_child_temp['name'] = child_depart.department
+                                c_child_temp['id'] = child_depart.d_id
+                                c_child_trees_list.append(c_child_temp)
+                                child_temp['children'] = c_child_trees_list
+                return JsonResponse(temp)
+
+
 
 
 def dept_add(request):
@@ -139,9 +174,9 @@ def dept_add(request):
         }
         data = request.POST.dict()
         # 获取部门编号
-        d_num = data.get('department_num')
+        d_id = data.get('d_id')
         # 查询是否已存在此部门
-        department = Department.objects.filter(department_num=d_num)
+        department = Department.objects.filter(d_id=d_id)
         # 如果存在, 则更改部门信息
         if department:
             department = department.first()
