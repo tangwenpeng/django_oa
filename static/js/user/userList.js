@@ -59,12 +59,16 @@ layui.use(['form', 'layer', 'table', 'laytpl'], function () {
             success: function (layero, index) {
                 var body = layui.layer.getChildFrame('body', index);
                 if (edit) {
-                    body.find(".userName").val(edit.userName);  //登录名
-                    body.find(".userEmail").val(edit.userEmail);  //邮箱
+                    body.find(".name").val(edit.name);  // 姓名
+                    body.find(".password").val(edit.userEmail);  // 密码
                     body.find(".userSex input[value=" + edit.userSex + "]").prop("checked", "checked");  //性别
-                    body.find(".userGrade").val(edit.userGrade);  //会员等级
-                    body.find(".userStatus").val(edit.userStatus);    //用户状态
-                    body.find(".userDesc").text(edit.userDesc);    //用户简介
+                    body.find(".job_number").val(edit.job_number);  // 工号
+                    body.find(".department").val(edit.department);    // 部门
+                    body.find(".phone").val(edit.phone);    // 电话号码
+                    body.find(".office_phone").val(edit.office_phone);    // 办公电话
+                    body.find(".email").val(edit.email);    // 邮箱
+                    body.find(".role").val(edit.role);    // 岗位
+
                     form.render();
                 }
 

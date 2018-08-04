@@ -6,16 +6,18 @@ layui.use(['form', 'layer', 'tree'], function () {
 
     form.on("submit(addUser)", function (data) {
         //弹出loading
+        console.log(data)
         var index = top.layer.msg('数据提交中，请稍候', {icon: 16, time: false, shade: 0.8});
         var csrf = $('input[name="csrfmiddlewaretoken"]').val();
         $.ajax({
             url: '/app/user_add/',
             type: 'POST',
             data: {
-                name: $(".nameame").val(),  //姓名
+                name: $(".name").val(),  //姓名
+                name: $(".password").val(),  //密码
                 job_number: $(".job_number").val(),  //工号
                 sex: data.field.sex,  //性别
-                department: data.field.department,  //部门
+                department: $('.department').val(),  //部门
                 role: data.field.role,  //部门
                 phone: $(".phone").val(),    // 电话
                 office_phone: $(".office_phone").val(),    //办公电话
@@ -43,23 +45,15 @@ layui.use(['form', 'layer', 'tree'], function () {
 
 
 
-
-
-
-
-
-
-
-
     $.get('/app/dept_tree/', function (msg) {
         tree({
         elem: "#classtree"
         ,
-        nodes: Array(msg)
+        nodes: msg
         ,
         click: function (node) {
             var $select = $($(this)[0].elem).parents(".layui-form-select");
-            $select.removeClass("layui-form-selected").find(".layui-select-title span").html(node.name).end().find("input:hidden[name='higher_id']").val(node.id);
+            $select.removeClass("layui-form-selected").find(".layui-select-title span").html(node.name).end().find("input:hidden[name='department']").val(node.id);
         }
     });
     });

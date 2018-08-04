@@ -261,11 +261,12 @@ class User(models.Model):
     m = models.ForeignKey(Meeting, models.DO_NOTHING, blank=True, null=True) # 会议id
     d = models.ForeignKey(Department, models.DO_NOTHING, blank=True, null=True) # 部门id
     sex = models.IntegerField(default=1) #  用户性别,1默认为男
-    job_number = models.CharField(max_length=32)  # 工号
+    job_number = models.CharField(max_length=32,unique=True)  # 工号
     name = models.CharField(max_length=64)  # 姓名
     phone = models.CharField(max_length=11)  # 联系电话
     email = models.CharField(max_length=32)  # 邮箱
     office_phone = models.CharField(max_length=20, blank=True, null=True)  # 办公电话
+    password = models.CharField(max_length=20, default='123456')
     role = models.ManyToManyField(Role, through='UserRole')  # 用户角色
     is_delete = models.IntegerField(default=0)  # 默认不删除信息
 

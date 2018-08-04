@@ -59,6 +59,8 @@ def user_add(request):
         else:
             user = User()
             user.job_number = data['job_number']
+            user.name = data['name']
+            user.password = data['password']
             user.sex = data['sex']
             user.phone = data['phone']
             user.office_phone = data['office_phone']
@@ -66,7 +68,7 @@ def user_add(request):
             department = Department.objects.get(d_id = data['department'])
             user.d = department
             user.save()
-            role = Role.objects.get(data['role'])
+            role = Role.objects.get(role_id = data['role'])
             UserRole.objects.create(user=user,role=role)
 
 
@@ -148,6 +150,18 @@ def dept_list(request):
         msg['data'] = departments_list
         return JsonResponse(msg)
 
+def tree(temp):
+    child_departs = Department.objects.filter(Q(is_delete=0) & Q(higher_id=temp['id']))
+    if child_departs:
+        child_trees_list = []
+        for child_depart in child_departs:
+            child_temp = dict()
+            child_temp['name'] = child_depart.department
+            child_temp['id'] = child_depart.d_id
+            child_trees_list.append(child_temp)
+            temp['children'] = child_trees_list
+            tree(child_temp)
+
 
 def dept_tree(request):
     if request.method == 'GET':
@@ -158,25 +172,10 @@ def dept_tree(request):
                 temp = dict()
                 temp['name'] = depart.department
                 temp['id'] = depart.d_id
-                child_departs = Department.objects.filter(Q(is_delete=0) & Q(higher_id=depart.d_id))
-                if child_departs:
-                    child_trees_list = []
-                    for child_depart in child_departs:
-                        child_temp = dict()
-                        child_temp['name'] = child_depart.department
-                        child_temp['id'] = child_depart.d_id
-                        child_trees_list.append(child_temp)
-                        temp['children'] = child_trees_list
-                        c_child_departs = Department.objects.filter(Q(is_delete=0) & Q(higher_id=child_depart.d_id))
-                        if child_departs:
-                            c_child_trees_list = []
-                            for child_depart in c_child_departs:
-                                c_child_temp = dict()
-                                c_child_temp['name'] = child_depart.department
-                                c_child_temp['id'] = child_depart.d_id
-                                c_child_trees_list.append(c_child_temp)
-                                child_temp['children'] = c_child_trees_list
-                return JsonResponse(temp)
+                temp['children'] = []
+                tree(temp)
+                trees_list.append(temp)
+        return JsonResponse(trees_list,safe=False)
 
 
 

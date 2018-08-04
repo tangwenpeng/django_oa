@@ -55,17 +55,24 @@
 {% csrf_token %}
 
     <div class="layui-row">
-		<div class="magb15 layui-col-md5 layui-col-xs12">
+		<div class="magb15 layui-col-md4 layui-col-xs12">
 			<label class="layui-form-label">工号</label>
             <div class="layui-input-block">
                 <input type="text" class="layui-input job_number" name="job_number" lay-verify="required"
                        placeholder="请输入工号">
             </div>
 		</div>
-		<div class="magb15 layui-col-md5 layui-col-xs12">
+		<div class="magb15 layui-col-md4 layui-col-xs12">
 			<label class="layui-form-label">姓名</label>
             <div class="layui-input-block">
                 <input type="text" class="layui-input name" name="name" lay-verify="required" placeholder="请输入姓名">
+            </div>
+		</div>
+
+        <div class="magb15 layui-col-md4 layui-col-xs12">
+			<label class="layui-form-label">密码</label>
+            <div class="layui-input-block">
+                <input type="text" class="layui-input password" name="passwoord" lay-verify="required" value="123456">
             </div>
 		</div>
 	</div>
@@ -89,7 +96,7 @@
                 <div class="layui-unselect layui-form-select select-dept downpanel">
                     <div class="layui-select-title layui-select-dept">
                         <span class="layui-input layui-unselect" id="treeclass">总经办</span>
-                        <input type="hidden" name="department" class='department' value="0">
+                        <input type="hidden" name="department" class='department' value="1">
                         <i class="layui-edge"></i>
                     </div>
                     <dl class="layui-anim layui-anim-upbit">
