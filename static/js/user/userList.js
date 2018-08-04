@@ -60,14 +60,15 @@ layui.use(['form', 'layer', 'table', 'laytpl'], function () {
                 var body = layui.layer.getChildFrame('body', index);
                 if (edit) {
                     body.find(".name").val(edit.name);  // 姓名
-                    body.find(".password").val(edit.userEmail);  // 密码
+                    body.find(".password").val(edit.password);  // 密码
                     body.find(".userSex input[value=" + edit.userSex + "]").prop("checked", "checked");  //性别
                     body.find(".job_number").val(edit.job_number);  // 工号
-                    body.find(".department").val(edit.department);    // 部门
+                    body.find("#treeclass").text(edit.department);    // 部门
+                    body.find("input:hidden[name='department']").val(edit.d_id);
                     body.find(".phone").val(edit.phone);    // 电话号码
                     body.find(".office_phone").val(edit.office_phone);    // 办公电话
                     body.find(".email").val(edit.email);    // 邮箱
-                    body.find(".role").val(edit.role);    // 岗位
+                    body.find('.layui-select-title .layui-unselect').val(edit.role);
 
                     form.render();
                 }
@@ -118,6 +119,7 @@ layui.use(['form', 'layer', 'table', 'laytpl'], function () {
         var csrf = $('input[name="csrfmiddlewaretoken"]').val();
         var layEvent = obj.event,
             data = obj.data;
+        console.log(data)
         if (layEvent === 'edit') { //编辑
             addUser(data);
         } else if (layEvent === 'del') { //删除

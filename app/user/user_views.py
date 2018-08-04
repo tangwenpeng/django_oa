@@ -30,13 +30,17 @@ def user_list(request):
         }
         for user in users:
             temp = dict()
+            temp['user_id'] = user.user_id
             temp['name'] = user.name
+            temp['password'] = user.password
             temp['sex'] = '男' if user.sex else '女'
             temp['job_number'] = user.job_number
             temp['department'] = Department.objects.get(d_id=user.d_id).department
+            temp['d_id'] = user.d_id
             temp['email'] = user.email
             temp['phone'] = user.phone
             temp['role'] = user.role.first().post if user.role.all() else None
+            temp['role_id'] = user.role.first().role_id if user.role.all() else None
             temp['office_phone'] = user.office_phone
             user_list.append(temp)
         msg['data'] = user_list
@@ -53,24 +57,23 @@ def user_add(request):
         return render(request, 'user/userAdd.html', {'roles':roles})
     if request.method == 'POST':
         data = request.POST.dict()
-        user_id = data.get('user_id')
-        if user_id:
-            user = User.objects.get(user_id)
-        else:
+        job_number = data['job_number']
+        user = User.objects.filter(job_number=job_number).first()
+        if not user:
             user = User()
-            user.job_number = data['job_number']
-            user.name = data['name']
-            user.password = data['password']
-            user.sex = data['sex']
-            user.phone = data['phone']
-            user.office_phone = data['office_phone']
-            user.email = data['email']
-            department = Department.objects.get(d_id = data['department'])
-            user.d = department
-            user.save()
-            role = Role.objects.get(role_id = data['role'])
-            UserRole.objects.create(user=user,role=role)
-
+        user.name = data['name']
+        user.password = data['password']
+        user.sex = data['sex']
+        user.phone = data['phone']
+        user.office_phone = data['office_phone']
+        user.email = data['email']
+        department = Department.objects.get(d_id = data['department'])
+        user.d = department
+        user.save()
+        role = Role.objects.get(role_id=data['role'])
+        if user.user_id:
+            UserRole.objects.filter(user=user).delete()
+        UserRole.objects.create(user=user, role=role)
 
         msg = {
             'code' : 0,
@@ -170,6 +173,7 @@ def dept_tree(request):
         if departs:
             for depart in departs:
                 temp = dict()
+                temp['spread'] = 'true'
                 temp['name'] = depart.department
                 temp['id'] = depart.d_id
                 temp['children'] = []

@@ -266,7 +266,7 @@ class User(models.Model):
     phone = models.CharField(max_length=11)  # 联系电话
     email = models.CharField(max_length=32)  # 邮箱
     office_phone = models.CharField(max_length=20, blank=True, null=True)  # 办公电话
-    password = models.CharField(max_length=20, default='123456')
+    password = models.CharField(max_length=32)
     role = models.ManyToManyField(Role, through='UserRole')  # 用户角色
     is_delete = models.IntegerField(default=0)  # 默认不删除信息
 

@@ -14,7 +14,7 @@ layui.use(['form', 'layer', 'tree'], function () {
             type: 'POST',
             data: {
                 name: $(".name").val(),  //姓名
-                name: $(".password").val(),  //密码
+                password: $(".password").val(),  //密码
                 job_number: $(".job_number").val(),  //工号
                 sex: data.field.sex,  //性别
                 department: $('.department').val(),  //部门
