@@ -11,6 +11,11 @@
     <meta name="format-detection" content="telephone=no">
     <link rel="stylesheet" href="/static/layui/css/layui.css" media="all"/>
     <link rel="stylesheet" href="/static/css/public.css" media="all"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/jquery.multiselect.css" />
+    <link rel="stylesheet" type="text/css" href="http://libs.useso.com/js/jqueryui/1.10.4/css/jquery-ui.min.css" />
+    <script type="text/javascript" src="/static/js/meeting/jquery.min.js"></script>
+    <script type="text/javascript" src="http://libs.useso.com/js/jqueryui/1.10.4/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="/static/js/meeting/jquery.multiselect.js"></script>
 </head>
 <body class="childrenBody">
 
@@ -62,7 +67,7 @@
         <div class="layui-inline layui-col-xs5">
             <label class="layui-form-label">参会人员</label>
             <div class="layui-input-block">
-                <select name="job_number" class="meeting_room" lay-filter="meeting_room">
+                <select name="job_number" class="meeting_room" lay-filter="meeting_room" multiple="multiple">
                     {% for user in data.user %}
                         <option value="{{ user.job_number }}">{{ user.name }}</option>
                     {% endfor %}
