@@ -298,11 +298,19 @@ def role_list(request):
         return JsonResponse(msg)
 
 def role_add(request):
+    """
+    添加/编辑岗位
+    :param request:
+    :return:
+    """
     if request.method == 'GET':
+        # 返回添加用户页面
         return render(request, 'role/roleAdd.html')
     if request.method == 'POST':
         data = request.POST.dict()
+        # 获取岗位id
         post_id = data['post_id']
+        # 获取
         role = Role.objects.filter(post_id=post_id).first()
         if not role:
             role = Role()
