@@ -50,8 +50,12 @@ def meeting_appointment(request):
     :return:
     """
     if request.method == 'GET':
+        department_id = request.GET.get('department_id')
         department = Department.objects.all()
-        user = User.objects.all()
+        if department_id:
+            user = User.objects.filter(department_id=department_id)
+        else:
+            user = User.objects.all()
         data = {
             'department': department,
             'user': user

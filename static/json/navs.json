@@ -92,7 +92,7 @@
 				{
 					"title": "会议预约",
 					"icon": "&#xe609;",
-					"href": "/static/page",
+					"href": "/app/meeting_appointment/",
 					"spread": false
 				}
 			]

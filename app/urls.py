@@ -29,7 +29,7 @@ urlpatterns = [
     url(r'^add_menu/', menu_views.add_menu, name='add_menu'),
     url(r'^menu_json_list/', menu_views.menu_json_list, name='menu_json_list'),
 
-    url(r'^dept_info/$', user_views.dept_info, name='dept_info'),  # 部门详细信息
+    # url(r'^dept_info/$', user_views.dept_info, name='dept_info'),  # 部门详细信息
 
     # 会议模块
     url(r'my_meeting/$', meeting_views.my_meeting, name='my_meeting'),  # 我的会议页面
