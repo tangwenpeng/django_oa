@@ -86,7 +86,6 @@ layui.use(['form', 'layer', 'table', 'laytpl','treeGrid'], function () {
             data = obj.data;
         if (layEvent === 'edit') { //编辑
             addDept(data);
-            console.log(data)
         } else if (layEvent === 'del') { //删除
             layer.confirm('确定删除此部门？', {icon: 3, title: '提示信息'}, function (index) {
                 $.ajax({
