@@ -29,6 +29,16 @@ urlpatterns = [
     url(r'^dept_del/$', user_views.dept_del, name='dept_del'),  # 部门详细信息
     url(r'^dept_tree/$', user_views.dept_tree, name='dept_tree'),  # 部门详细信息
 
+    # 岗位管理
+    url(r'^role/$', user_views.role, name='role'),  # 岗位页面
+    url(r'^role_list/$', user_views.role_list, name='role_list'),  # 岗位信息
+    url(r'^role_add/$', user_views.role_add, name='role_add'),  # 添加岗位
+    url(r'^role_del/$', user_views.role_del, name='role_del'),  # 删除岗位
+
+
+
+
+
     url(r'^menu_list/', menu_views.menu_list, name='menu_list'),
     url(r'^add_menu/', menu_views.add_menu, name='add_menu'),
     url(r'^menu_json_list/', menu_views.menu_json_list, name='menu_json_list'),

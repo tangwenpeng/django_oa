@@ -14,6 +14,7 @@ def user(request):
     if request.method == 'GET':
         return render(request, 'user/user.html')
 
+
 def user_list(request):
     """
     显示用户列表
@@ -23,12 +24,14 @@ def user_list(request):
     if request.method == 'GET':
         users = User.objects.filter(is_delete=0)
         user_list = []
+        # 返回json数据
         msg = {
             "code": 0,
             "msg": "",
             "count": len(users),  # 所有部门总数
         }
         for user in users:
+            # 循环组装用户json信息
             temp = dict()
             temp['user_id'] = user.user_id
             temp['name'] = user.name
@@ -46,19 +49,23 @@ def user_list(request):
         msg['data'] = user_list
         return JsonResponse(msg)
 
+
 def user_add(request):
     """
-    添加用户
+    添加/编辑用户
     :param request:
     :return:
     """
     if request.method == 'GET':
+        # 添加用户页面渲染岗位
         roles = Role.objects.filter(is_delete=0)
         return render(request, 'user/userAdd.html', {'roles':roles})
     if request.method == 'POST':
         data = request.POST.dict()
+        # 通过工号(唯一)查找用户是否存在
         job_number = data['job_number']
         user = User.objects.filter(job_number=job_number).first()
+        # 如果不存在，则创建用户
         if not user:
             user = User()
         user.name = data['name']
@@ -70,16 +77,20 @@ def user_add(request):
         department = Department.objects.get(d_id = data['department'])
         user.d = department
         user.save()
+        # 获取岗位对象
         role = Role.objects.get(role_id=data['role'])
         if user.user_id:
+            # 编辑用户岗位
+            # 存在用户则删除表的关联关系
             UserRole.objects.filter(user=user).delete()
         UserRole.objects.create(user=user, role=role)
-
+        # 添加 / 编辑 用户json数据
         msg = {
             'code' : 0,
             'msg' : '添加成功'
         }
         return JsonResponse(msg)
+
 
 def user_del(request):
     """
@@ -103,6 +114,7 @@ def user_del(request):
         }
         return JsonResponse(msg)
 
+
 def user_info(request):
     """
     显示用户信息
@@ -125,6 +137,7 @@ def dept(request):
 
 def dept_list(request):
     if request.method == 'GET':
+        # 获取顶级部门
         departments = Department.objects.filter(is_delete=0)
         departments_list = []
         msg = {
@@ -153,9 +166,17 @@ def dept_list(request):
         msg['data'] = departments_list
         return JsonResponse(msg)
 
+
 def tree(temp):
+    """
+    部门树
+    :param temp:构造部门树字典
+    :return:
+    """
+    # 获取子部门
     child_departs = Department.objects.filter(Q(is_delete=0) & Q(higher_id=temp['id']))
     if child_departs:
+        # 如果存在子部门, 循环子部门,存入信息
         child_trees_list = []
         for child_depart in child_departs:
             child_temp = dict()
@@ -167,8 +188,14 @@ def tree(temp):
 
 
 def dept_tree(request):
+    """
+    构造部门树, 用于部门树显示
+    :param request:
+    :return:
+    """
     if request.method == 'GET':
         trees_list = []
+        # 获取顶级部门
         departs = Department.objects.filter(Q(is_delete=0) & Q(higher_id=0))
         if departs:
             for depart in departs:
@@ -177,11 +204,10 @@ def dept_tree(request):
                 temp['name'] = depart.department
                 temp['id'] = depart.d_id
                 temp['children'] = []
+                # 递归获取子部门
                 tree(temp)
                 trees_list.append(temp)
         return JsonResponse(trees_list,safe=False)
-
-
 
 
 def dept_add(request):
@@ -241,3 +267,84 @@ def dept_del(request):
             "msg": "删除成功",
         }
         return JsonResponse(msg)
+
+
+def role(request):
+    """
+    岗位页面
+    :param request:
+    :return:
+    """
+    return render(request, 'role/role.html')
+
+
+def role_list(request):
+    if request.method == 'GET':
+        roles = Role.objects.filter(is_delete=0)
+        roles_list = []
+        msg = {
+            "code": 0,
+            "msg": "",
+            "count": len(roles),  # 所有部门总数
+        }
+        if roles:
+            for role in roles:
+                role_temp = dict()
+                role_temp['post_id'] = role.post_id # 部门编号
+                role_temp['post'] = role.post # 部门名称
+                role_temp['remark'] = role.remark # 部门名称
+                roles_list.append(role_temp)
+            msg['data'] = roles_list
+        return JsonResponse(msg)
+
+def role_add(request):
+    if request.method == 'GET':
+        return render(request, 'role/roleAdd.html')
+    if request.method == 'POST':
+        data = request.POST.dict()
+        post_id = data['post_id']
+        role = Role.objects.filter(post_id=post_id).first()
+        if not role:
+            role = Role()
+        role.post_id = post_id
+        role.post = data['post']
+        role.remark = data['remark']
+        role.save()
+        msg = {
+            'code':0,
+            'msg':'添加成功'
+        }
+        return JsonResponse(msg)
+
+def role_del(request):
+    if request.method == 'POST':
+        post_id = request.POST.get('post_id')
+        role = Role.objects.filter(post_id=post_id).first()
+        role.is_delete = 1
+        role.save()
+        msg = {
+            'code':0,
+            'msg':'删除成功'
+        }
+        return JsonResponse(msg)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

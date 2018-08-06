@@ -197,9 +197,11 @@ class OfficeGoods(models.Model):
 class Role(models.Model):
     """角色"""
     role_id = models.AutoField(primary_key=True) # 自增id
-    post_id = models.IntegerField() # 角色id
+    post_id = models.CharField(max_length=64,unique=True) # 角色id
     post = models.CharField(max_length=64) # 角色名
+    remark = models.CharField(max_length=256, blank=True, null=True)  # 岗位备注信息
     is_delete = models.IntegerField(default=0)
+
 
     class Meta:
         managed = False
