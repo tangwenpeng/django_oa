@@ -199,6 +199,7 @@ class Role(models.Model):
     role_id = models.AutoField(primary_key=True) # 自增id
     post_id = models.IntegerField() # 角色id
     post = models.CharField(max_length=64) # 角色名
+    is_delete = models.IntegerField(default=0)
 
     class Meta:
         managed = False
@@ -229,6 +230,8 @@ class Salary(models.Model):
     five_insurance = models.FloatField()                                             # 五险
     provident_fund = models.FloatField()                                             # 公积金
     real_salary = models.FloatField()                                                # 实际工资
+    salary_status = models.Field(choices=((1, '未发放'), (2, '已发放'),),
+                                 default='未发放')                                              # 工资发放状态
 
     class Meta:
         managed = False
@@ -241,14 +244,15 @@ class Salary(models.Model):
             'jobNumber': self.job_number,
             'time': self.time,
             'userName': self.name,
-            'staff_department': user.d.department,
+            'staff_department': user.department,
             'basic_salary': self.basic_salary,
             'deduct_salary': self.deduct_salary,
             'allowance': self.allowance,
             'award': self.award,
             'five_insurance': self.five_insurance,
             'provident_fund': self.provident_fund,
-            'real_salary': self.real_salary
+            'real_salary': self.real_salary,
+            'salary_status': self.salary_status,
         }
 
 
@@ -256,12 +260,15 @@ class User(models.Model):
     user_id = models.AutoField(primary_key=True)  # 用户id
     m = models.ForeignKey(Meeting, models.DO_NOTHING, blank=True, null=True) # 会议id
     d = models.ForeignKey(Department, models.DO_NOTHING, blank=True, null=True) # 部门id
-    job_number = models.CharField(max_length=32)  # 工号
+    sex = models.IntegerField(default=1) #  用户性别,1默认为男
+    job_number = models.CharField(max_length=32,unique=True)  # 工号
     name = models.CharField(max_length=64)  # 姓名
     phone = models.CharField(max_length=11)  # 联系电话
     email = models.CharField(max_length=32)  # 邮箱
     office_phone = models.CharField(max_length=20, blank=True, null=True)  # 办公电话
+    password = models.CharField(max_length=32)
     role = models.ManyToManyField(Role, through='UserRole')  # 用户角色
+    is_delete = models.IntegerField(default=0)  # 默认不删除信息
 
 
     class Meta:
@@ -270,7 +277,7 @@ class User(models.Model):
 
 
 class UserRole(models.Model):
-    user = models.ForeignKey(User, models.DO_NOTHING, primary_key=True)
+    user = models.ForeignKey(User, models.DO_NOTHING)
     role = models.ForeignKey(Role, models.DO_NOTHING)
 
     class Meta:

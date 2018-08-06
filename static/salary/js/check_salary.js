@@ -7,7 +7,7 @@ layui.use(['form','layer','table','laytpl'],function(){
 
     //用户列表
     var tableIns = table.render({
-        elem: '#userList',
+        elem: '#salaryList',
         url : '/app/salary/',
         cellMinWidth : 95,
         page : true,

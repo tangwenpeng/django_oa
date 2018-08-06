@@ -30,7 +30,9 @@
 			</div>
 		</form>
 	</blockquote>
-	<table id="userList" lay-filter="userList"></table>
+	<table id="userList" lay-filter="userList">
+        {% csrf_token %}
+    </table>
 
 	<!--操作-->
 	<script type="text/html" id="userListBar">
